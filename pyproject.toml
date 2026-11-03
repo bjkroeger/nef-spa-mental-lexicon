@@ -1,0 +1,9 @@
+[project]
+name = "nef-spa-lexicon"
+version = "0.1.0"
+description = "Recursive WWT representations for an eight-word mental lexicon"
+requires-python = ">=3.13"
+dependencies = ["numpy", "matplotlib", "nengo==4.1.0", "nengo-spa==2.0.0"]
+
+[tool.setuptools]
+py-modules = ["lexicon_vectors", "perception", "production"]
