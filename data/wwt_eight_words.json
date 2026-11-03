@@ -1,0 +1,374 @@
+{
+  "source_directory": "2024_Dysfunctions/wwt",
+  "source_sha256": {
+    "wwt_concepts.py": "5f20dfde82aacda0cf93c3a2cca0ff59ec3165dc36294caea6bfa8f809251906",
+    "wwt_words.py": "be7b95ad98e029f6bcb7e0803d7832c1e8c7f155741a5bc039e6c77b9d8f7dc4",
+    "wwt_phonos.py": "67e6500549111ed2376aade614cdf03ea19ed3a241a0e5217e08385734c901b6",
+    "run_wwt.py": "ccb925dadf5b511cd29a75b1dc39dcbba5ac861ccc784efc6e3c1da84e72fbb8"
+  },
+  "entries": [
+    {
+      "word": "Tasse",
+      "source_index": 303,
+      "concept": "C_Tasse",
+      "lemma": "W_Tasse",
+      "phonology": "Pw_St_tas_se"
+    },
+    {
+      "word": "Tasche",
+      "source_index": 561,
+      "concept": "C_Tasche",
+      "lemma": "W_Tasche",
+      "phonology": "Pw_St_taS_Se"
+    },
+    {
+      "word": "Kanne",
+      "source_index": 526,
+      "concept": "C_Kanne",
+      "lemma": "W_Kanne",
+      "phonology": "Pw_St_kan_ne"
+    },
+    {
+      "word": "Katze",
+      "source_index": 554,
+      "concept": "C_Katze",
+      "lemma": "W_Katze",
+      "phonology": "Pw_St_kat_tse"
+    },
+    {
+      "word": "Teller",
+      "source_index": 302,
+      "concept": "C_Teller",
+      "lemma": "W_Teller",
+      "phonology": "Pw_St_tEl_lEA"
+    },
+    {
+      "word": "Topf",
+      "source_index": 527,
+      "concept": "C_Topf",
+      "lemma": "W_Topf",
+      "phonology": "Pw_St_tOpf"
+    },
+    {
+      "word": "Stuhl",
+      "source_index": 459,
+      "concept": "C_Stuhl",
+      "lemma": "W_Stuhl",
+      "phonology": "Pw_St_Stuul"
+    },
+    {
+      "word": "Schrank",
+      "source_index": 458,
+      "concept": "C_Schrank",
+      "lemma": "W_Schrank",
+      "phonology": "Pw_St_SraNk"
+    }
+  ],
+  "concept_network": {
+    "C_Geschirr_vis": [],
+    "C_Henkel_vis": [],
+    "C_Tasse": [
+      [
+        "AssocWith",
+        "C_Geschirr_vis"
+      ],
+      [
+        "AssocWith",
+        "C_Henkel_vis"
+      ]
+    ],
+    "C_Automat_vis": [],
+    "C_Tasche": [
+      [
+        "AssocWith",
+        "C_Automat_vis"
+      ]
+    ],
+    "C_Kanne": [
+      [
+        "AssocWith",
+        "C_Henkel_vis"
+      ]
+    ],
+    "C_Fressen_vis": [],
+    "C_Katze": [
+      [
+        "AssocWith",
+        "C_Fressen_vis"
+      ]
+    ],
+    "C_Abtrocknen_vis": [],
+    "C_Teller": [
+      [
+        "AssocWith",
+        "C_Geschirr_vis"
+      ],
+      [
+        "AssocWith",
+        "C_Abtrocknen_vis"
+      ]
+    ],
+    "C_Topf": [
+      [
+        "AssocWith",
+        "C_Henkel_vis"
+      ]
+    ],
+    "C_Moebel_vis": [],
+    "C_Sitzgelegenheit": [],
+    "C_Stuhl_aud": [],
+    "C_Stuhl": [
+      [
+        "AssocWith",
+        "C_Moebel_vis"
+      ],
+      [
+        "AssocWith",
+        "C_Sitzgelegenheit"
+      ],
+      [
+        "AssocWith",
+        "C_Stuhl_aud"
+      ]
+    ],
+    "C_Schrank": [
+      [
+        "AssocWith",
+        "C_Moebel_vis"
+      ]
+    ]
+  },
+  "phonology_network": {
+    "P_St_t": [],
+    "P_St_ta": [
+      [
+        "InclPhon",
+        "P_St_t"
+      ]
+    ],
+    "P_St_tas": [
+      [
+        "InclPhon",
+        "P_St_ta"
+      ]
+    ],
+    "P_s": [],
+    "P_se": [
+      [
+        "InclPhon",
+        "P_s"
+      ]
+    ],
+    "Pw_St_tas_se": [
+      [
+        "InclPhon",
+        "P_St_tas"
+      ],
+      [
+        "InclPhon",
+        "P_se"
+      ]
+    ],
+    "P_St_taS": [
+      [
+        "InclPhon",
+        "P_St_ta"
+      ]
+    ],
+    "P_St_S": [],
+    "P_S": [
+      [
+        "InclPhon",
+        "P_St_S"
+      ]
+    ],
+    "P_Se": [
+      [
+        "InclPhon",
+        "P_S"
+      ]
+    ],
+    "Pw_St_taS_Se": [
+      [
+        "InclPhon",
+        "P_St_taS"
+      ],
+      [
+        "InclPhon",
+        "P_Se"
+      ]
+    ],
+    "P_St_k": [],
+    "P_St_ka": [
+      [
+        "InclPhon",
+        "P_St_k"
+      ]
+    ],
+    "P_St_kan": [
+      [
+        "InclPhon",
+        "P_St_ka"
+      ]
+    ],
+    "P_n": [],
+    "P_ne": [
+      [
+        "InclPhon",
+        "P_n"
+      ]
+    ],
+    "Pw_St_kan_ne": [
+      [
+        "InclPhon",
+        "P_St_kan"
+      ],
+      [
+        "InclPhon",
+        "P_ne"
+      ]
+    ],
+    "P_St_kat": [
+      [
+        "InclPhon",
+        "P_St_ka"
+      ]
+    ],
+    "P_St_ts": [],
+    "P_ts": [
+      [
+        "InclPhon",
+        "P_St_ts"
+      ]
+    ],
+    "P_tse": [
+      [
+        "InclPhon",
+        "P_ts"
+      ]
+    ],
+    "Pw_St_kat_tse": [
+      [
+        "InclPhon",
+        "P_St_kat"
+      ],
+      [
+        "InclPhon",
+        "P_tse"
+      ]
+    ],
+    "P_St_tE": [
+      [
+        "InclPhon",
+        "P_St_t"
+      ]
+    ],
+    "P_St_tEl": [
+      [
+        "InclPhon",
+        "P_St_tE"
+      ]
+    ],
+    "P_St_l": [],
+    "P_l": [
+      [
+        "InclPhon",
+        "P_St_l"
+      ]
+    ],
+    "P_lE": [
+      [
+        "InclPhon",
+        "P_l"
+      ]
+    ],
+    "P_lEA": [
+      [
+        "InclPhon",
+        "P_lE"
+      ]
+    ],
+    "Pw_St_tEl_lEA": [
+      [
+        "InclPhon",
+        "P_St_tEl"
+      ],
+      [
+        "InclPhon",
+        "P_lEA"
+      ]
+    ],
+    "P_St_tO": [
+      [
+        "InclPhon",
+        "P_St_t"
+      ]
+    ],
+    "P_St_tOpf": [
+      [
+        "InclPhon",
+        "P_St_tO"
+      ]
+    ],
+    "Pw_St_tOpf": [
+      [
+        "InclPhon",
+        "P_St_tOpf"
+      ]
+    ],
+    "P_St_St": [
+      [
+        "InclPhon",
+        "P_St_S"
+      ]
+    ],
+    "P_St_Stuu": [
+      [
+        "InclPhon",
+        "P_St_St"
+      ]
+    ],
+    "P_St_Stuul": [
+      [
+        "InclPhon",
+        "P_St_Stuu"
+      ]
+    ],
+    "Pw_St_Stuul": [
+      [
+        "InclPhon",
+        "P_St_Stuul"
+      ]
+    ],
+    "P_St_Sr": [
+      [
+        "InclPhon",
+        "P_St_S"
+      ]
+    ],
+    "P_St_Sra": [
+      [
+        "InclPhon",
+        "P_St_Sr"
+      ]
+    ],
+    "P_St_SraN": [
+      [
+        "InclPhon",
+        "P_St_Sra"
+      ]
+    ],
+    "P_St_SraNk": [
+      [
+        "InclPhon",
+        "P_St_SraN"
+      ]
+    ],
+    "Pw_St_SraNk": [
+      [
+        "InclPhon",
+        "P_St_SraNk"
+      ]
+    ]
+  }
+}
