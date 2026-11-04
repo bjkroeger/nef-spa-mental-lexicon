@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEF-SPA Lexical Model | Bernd J. Kröger</title>
+<meta name="description" content="A 613-entry NEF-SPA mental lexicon with semantic and phonological neighbours, recorded perception and production, and reproducible neuron ablation.">
+<meta name="author" content="Bernd J. Kröger">
+<link rel="stylesheet" href="styles/stylesheet.css">
+<style>
+body {margin:24px auto;padding:0 20px;max-width:1500px;color:#202c36;font-family:Arial,sans-serif;line-height:1.65}
+main,header,footer,nav,div {width:auto;max-width:100%}
+nav {overflow-x:auto;line-height:1.3} nav table {white-space:nowrap}
+h1 {font-size:2.1rem;line-height:1.2;margin:30px 0 16px} h2 {font-size:1.55rem;margin:48px 0 14px;border-bottom:2px solid #d9e4e9;padding-bottom:8px}
+h3 {font-size:1.15rem;margin-top:26px} p,li {max-width:100ch} a {color:#17617b} a:hover {text-decoration:none}
+.meta {color:#526674} .intro {border-left:4px solid #17617b;background:#f3f7f8;padding:16px 22px}
+.contents {display:flex;flex-wrap:wrap;gap:12px 24px;margin:24px 0;background:transparent}
+figure {margin:28px 0;padding:12px;border:1px solid #d9e4e9;background:white}
+figure img {display:block;max-width:100%;height:auto;margin:auto} figure.traces img {max-width:1000px;width:100%}
+figcaption {font-size:.95rem;color:#435765;margin:12px 8px 2px;max-width:110ch}
+.table-wrap {overflow-x:auto} .results {border-collapse:collapse;min-width:560px;max-width:100%;margin:18px 0}
+.results th,.results td {padding:10px 16px;text-align:left;border-bottom:1px solid #d9e4e9} .results th {background:#edf3f5}
+.formula {font-family:monospace;background:#f3f7f8;padding:18px;overflow-x:auto}
+.path {font-size:1.2rem;color:#17617b;font-weight:bold} .note {background:#f3f7f8;padding:16px 22px}
+footer {margin-top:48px;padding:16px;font-size:.9rem} @media(max-width:650px){body{padding:0 12px;margin:12px auto}h1{font-size:1.7rem}figure{padding:4px;margin:20px 0}.bar{border-width:.5em}}
+</style>
+</head>
+<body>
+<div id="header-container"></div>
+<main>
+<p><a href="research.htm">← Back to Research</a></p>
+<h1>NEF-SPA Lexical Model</h1>
+<p class="meta">Bernd J. Kröger · Development status: 4 November 2026</p>
+<p class="intro"><strong>Working title: Mental Lexicon Model.</strong> This lexical part covers cognitive perception and production within the broader speech-processing model. The current mental lexicon contains <strong>613 word entries</strong>, with structured concept and phonological representations. Eight test words remain visible in the interface, while all 613 entries participate in retrieval. The online lab replays recorded neural runs with fixed seeds, including five production conditions and undamaged perception.</p>
+<p><strong>Development:</strong> The implementation, analyses, figures and documentation were created under the scientific direction of Bernd J. Kröger with assistance from ChatGPT. The scientific foundations are the publications listed below and the existing WWT implementation.</p>
+<p><strong>Python source code:</strong> <a href="https://github.com/bjkroeger/nef-spa-mental-lexicon">GitHub repository: nef-spa-mental-lexicon</a> · <a href="https://github.com/bjkroeger/nef-spa-mental-lexicon/releases/tag/v0.1.0">Historical eight-word version: v0.1.0</a>. The repository includes the lexicon data, tests and instructions for running the model.</p>
+<div class="note" style="border-left:4px solid #207768;margin:24px 0">
+<p style="margin:0 0 8px"><strong><a href="perception-production-model/" target="_blank" rel="noopener" style="font-size:1.25rem">Mental Lexicon Model — Interactive Lab →</a></strong></p>
+<p style="margin:0">Explore the interactive Lexicon Lab in your browser: choose from eight phonological forms, follow the perception pathway to a concept, and start an independent word-production task. Includes slow motion, visible activations and phonological output. The online version presents 48 precomputed Nengo simulations: eight perception runs and five production cases for each of the eight words. It includes a mental-lexicon diagram and selectable ablation examples, with short explanations for Kanne, and requires no local installation. The model vocabulary contains 613 entries; the eight visible words are test inputs, not the full vocabulary. Semantic and phonological neighbour tables search all 613 entries.</p>
+</div>
+<nav class="contents" aria-label="Contents"><a href="#lexikon">Lexicon core</a><a href="#kodierung">Vector encoding</a><a href="#matrizen">Similarity matrices</a><a href="#perzeption">Perception</a><a href="#produktion">Production</a><a href="#methodik">Methods and limitations</a><a href="#literatur">References</a></nav>
+
+<section id="lexikon"><h2>1. A 613-entry lexicon with eight test words</h2>
+<p>The starting point is the three-level organisation of the mental lexicon, as described in particular by Stille et al. (2020). The broader model framework follows Kröger (2023). The 613 word entries were extracted from the existing WWT implementation, excluding task prompts, cue phrases and placeholders as lexical candidates. All required lower-level representations are retained. The following eight words are offered as test inputs: <strong>Tasse, Tasche, Kanne, Katze, Teller, Topf, Stuhl and Schrank.</strong></p>
+<div class="table-wrap"><table class="results"><thead><tr><th>Level</th><th>Representation in the core model</th></tr></thead><tbody>
+<tr><td>Concepts</td><td>Structured pointers with predefined semantic relations.</td></tr>
+<tr><td>Lemmas</td><td>Separate lexical entries with independent vectors; grammatical features are not yet included at this stage.</td></tr>
+<tr><td>Phonological forms</td><td>Structured pointers preserving the original hierarchical phonological decomposition.</td></tr>
+</tbody></table></div>
+<p>Tasse, Kanne and Topf share the conceptual relation to “handle”; Tasse and Teller share “tableware”; Stuhl and Schrank share “furniture”. Examples of phonological overlap include Tasse and Tasche, as well as Kanne and Katze.</p>
+<p>The relations are taken from the WWT code and are tailored to its tasks. They do not represent complete everyday knowledge about these words. The expanded graph contains 1,205 concept nodes, including 593 deep-layer nodes, and 1,616 phonology nodes, including 1,003 deep-layer nodes. Deep-layer nodes support the word representations; they are not extra selectable word entries. Thirteen missing phonological mappings in the source lists were restored from existing definitions; the correction record is included in the dataset.</p></section>
+
+<section id="kodierung"><h2>2. Relational structure and recursive vector encoding</h2>
+<p>A <em>Semantic Pointer Network</em> is initially a structured knowledge representation. It is not equivalent to a neural network. The relational structure specifies which entries share features or components. Vector encoding translates these relations into mathematical representations, which can then be used by a neural network.</p>
+<p>The recursive WWT encoding constructs each entry from a random contribution of its own and the representations of its target nodes bound to relation vectors:</p>
+<div class="formula">v(x) = normalize(b(x) + Σ [r(relation) ⊛ v(target node)])</div>
+<p><code>⊛</code> denotes circular convolution. “Recursive” means that every target node is constructed using the same rule. Its internal structure therefore contributes to the parent entry. Leaf nodes without outgoing relations consist of their own random contribution. Each composed vector is normalised.</p>
+<p>An example from the original phonological decomposition is:</p>
+<div class="formula">Word form Tasse → P_St_tas → P_St_ta → P_St_t</div>
+<p>Tasche has a different higher-level component but also uses <code>P_St_ta</code> below it. This shared structure produces similarity. Likewise, Kanne and Katze share <code>P_St_ka</code>. The new implementation preserves this recursive rule rather than replacing the target representations with separate identity vectors.</p>
+<p><strong>The relations are predefined; the base vectors are random.</strong> A fixed seed produces the same vectors when the code is run again. Different seeds yield different realisations of the same relational structure. All random contributions are reproducible in the new implementation, although this does not reproduce the historical WWT vectors bit for bit.</p></section>
+
+<section id="matrizen"><h2>3. Similarity matrices before neural simulation</h2>
+<p>The figure below shows cosine similarities between the normalised vectors using 512 dimensions and seed 10. The diagonal is 1. Values close to zero indicate low vector similarity. Small negative values indicate neither semantic opposites nor neural inhibition.</p>
+<figure><a href="nef-spa-assets/similarity_matrices.png?v=en-20261103"><img src="nef-spa-assets/similarity_matrices.png?v=en-20261103" width="3060" height="1080" alt="Similarity matrices for the eight German words at the concept, lemma and phonological levels."></a><figcaption>Figure 1. Vector similarities without neural simulation. Semantic relations appear at the concept level and phonological relations at the phonological level. No systematic similarities were introduced at the lemma level. <a href="nef-spa-assets/similarity_matrices.svg?v=en-20261103">Vector graphic (SVG)</a>. Click any figure to open it at full size.</figcaption></figure>
+<figure><a href="nef-spa-assets/nearest_neighbours-613-20261104.png"><img loading="lazy" src="nef-spa-assets/nearest_neighbours-613-20261104.png" width="2560" height="1392" alt="Five nearest semantic and phonological neighbours among all 613 word entries for each of the eight test words."></a><figcaption>Five nearest other entries among all 613 words, separately for semantic and phonological similarity. Bold names belong to the eight test words. <a href="nef-spa-assets/nearest_neighbours-613-20261104.svg">Vector graphic (SVG)</a>. The same tables can be filtered to the selected word in Lexicon Lab.</figcaption></figure>
+<p class="note"><strong>Stored word vectors, mathematical similarities and ablation.</strong> Ablation leaves the stored word vectors and their mathematical similarities completely unchanged in this implementation. It damages their neural processing: activations may become weaker or distorted, and retrieval may fail or produce a different word. The matrices always show the undamaged reference relationships; the lab’s activity bars show what the neural model actually produces under the selected damage settings.</p>
+<p>The original eight vectors are exactly preserved in the expanded lexicon, so the eight-word similarity matrices above remain valid. Neighbours reflect the original WWT task associations rather than an independent linguistic similarity norm; for example, the source links Tasche to the visual Automat context.</p>
+<p>To assess the effect of randomness, vector construction was repeated with 100 seeds (0–99). These are <strong>not neural simulation runs</strong>. Across these realisations, the mean phonological similarity of Tasse–Tasche is 0.319 (standard deviation 0.072), and that of Kanne–Katze is 0.329 (0.080). The individual seed shown here was selected before the analysis.</p>
+<p>Mathematical checks confirm that the relations are preserved, the recursive rule is implemented correctly, the vectors are normalised and the results are reproducible. An additional analysis with 64 dimensions was performed locally; the neural experiments documented here use 512 dimensions.</p></section>
+
+<section id="perzeption"><h2>4. Recorded perception</h2>
+<p class="path">Phonological form → Lemma → Concept</p>
+<p>The complete phonological word pointer is supplied from 0.15 to 0.75 seconds. A competitive associative memory selects the lemma; a second memory transfers it to the concept level. Acoustic preprocessing is not modelled. All eight test words are correctly retrieved in the undamaged reference, with the output compared against all 613 candidates. For Kanne, the mean concept target activation is 0.965.</p>
+<p><a href="perception-production-model/">Open Lexicon Lab</a>, select “Understand a word” and play any of the eight reference recordings. Perception has no damage presets in this published edition.</p></section>
+<section id="produktion"><h2>5. Word retrieval and production ablation</h2>
+<p class="path">Concept → Lemma → Phonological form</p>
+<p>A complete concept pointer is supplied directly; visual preprocessing is outside this demonstration. All eight test words are correctly retrieved in the undamaged reference. Five recorded production configurations are available for each word.</p>
+<p><strong>Why these components?</strong> The concept buffer, concept-to-lemma associative memory and lemma buffer were selected following the dysfunction sites studied by <a href="https://doi.org/10.3389/fpsyg.2020.01594">Stille et al. (2020)</a>. Perception and word comprehension also play a role in the WWT framework, but the emphasis here is on word retrieval for production. These five configurations illustrate the current model; they do not reproduce the paper’s experimental conditions or results.</p>
+<div class="table-wrap"><table class="results"><caption>Kanne: remaining neurons and mean phonological target activation, 0.45–0.70 s</caption><thead><tr><th>Case</th><th>Concept / C→L / Lemma (%)</th><th>Target activation</th><th>Retrieval decision</th></tr></thead><tbody>
+<tr><td>Reference</td><td>100 / 100 / 100</td><td>0.973</td><td>Kanne</td></tr>
+<tr><td>Two buffers reduced</td><td>50 / 100 / 50</td><td>0.528</td><td>Kanne</td></tr>
+<tr><td>Memory at 70%</td><td>50 / 70 / 50</td><td>0.298</td><td>Below threshold</td></tr>
+<tr><td>Memory at 55%</td><td>50 / 55 / 50</td><td>0.001</td><td>No retrieval</td></tr>
+<tr><td>Lemma restored to 75%</td><td>50 / 55 / 75</td><td>0.325</td><td>Kanne, close to threshold</td></tr>
+</tbody></table></div>
+<p>The displayed percentages refer to remaining neurons, not activation or probability. Retrieval requires the largest mean output-template dot product to exceed 0.30 and its margin over the next candidate to exceed 0.10, considering all 613 candidates. A visible target representation can therefore fall short of formal retrieval. Case explanations refer specifically to Kanne; other test words may behave differently.</p>
+<h3>Checking all eight test words</h3><p class="fine">At these fixed seeds, Case 3 fails for six of eight test words; Tasse and Topf are still retrieved. Case 4 retrieves six of eight; Stuhl and Teller remain below the retrieval criteria. Values are mean phonological target dot products over 0.45–0.70 s. These are demonstrations of word-dependent effects, not a general success rate for the 613-entry lexicon.</p><div class="table-wrap"><table class="results"><thead><tr><th>Word</th><th>Case 3 · 50/55/50</th><th>Case 4 · 50/55/75</th></tr></thead><tbody><tr><th scope="row">Tasse</th><td>0.367 · retrieved</td><td>0.621 · retrieved</td></tr>
+<tr><th scope="row">Tasche</th><td>-0.001 · no retrieval</td><td>0.474 · retrieved</td></tr>
+<tr><th scope="row">Kanne</th><td>0.001 · no retrieval</td><td>0.325 · retrieved</td></tr>
+<tr><th scope="row">Katze</th><td>0.062 · no retrieval</td><td>0.506 · retrieved</td></tr>
+<tr><th scope="row">Teller</th><td>0.001 · no retrieval</td><td>0.001 · no retrieval</td></tr>
+<tr><th scope="row">Topf</th><td>0.508 · retrieved</td><td>0.720 · retrieved</td></tr>
+<tr><th scope="row">Stuhl</th><td>0.000 · no retrieval</td><td>0.201 · no retrieval</td></tr>
+<tr><th scope="row">Schrank</th><td>0.016 · no retrieval</td><td>0.471 · retrieved</td></tr>
+</tbody></table></div>
+</section>
+<section id="methodik"><h2>6. Measurements, implementation and limitations</h2>
+<div class="table-wrap"><table class="results"><thead><tr><th>Parameter</th><th>Setting</th></tr></thead><tbody>
+<tr><td>Software</td><td>Python 3.13, Nengo 4.1.0, NengoSPA 2.0.0</td></tr>
+<tr><td>Lexicon</td><td>613 entries; eight visible test words</td></tr>
+<tr><td>Vectors</td><td>512 dimensions; vector seed 10</td></tr>
+<tr><td>Neural network</td><td>199,400 LIF neurons per pathway; neural seed 11</td></tr>
+<tr><td>Buffers</td><td>Three SPA State buffers; 50 neurons per dimension; 25,600 neurons per buffer; no feedback</td></tr>
+<tr><td>Associative memories</td><td>100 neurons per entry; 61,300 per memory; threshold 0.3; competitive selection in the first memory</td></tr>
+<tr><td>Ablation</td><td>Seed 2026; nested random masks; neurons silenced after decoder construction; no retraining or compensation</td></tr>
+<tr><td>Timing</td><td>1 ms steps; 1.1 s total; input 0.15–0.75 s; 20 ms readout filter; decision window 0.45–0.70 s</td></tr>
+<tr><td>Publication</td><td>48 recorded runs: eight undamaged perception and 40 production runs. The public sliders display fixed settings and cannot be moved.</td></tr>
+</tbody></table></div>
+<p><strong>Similarity is not probability.</strong> Neighbour matrices compare normalised templates and show cosine similarities. Activity bars compare the evolving, unnormalised neural state with each unit template. These dot products reflect both direction and strength. Separate markers show associative-memory entry outputs.</p>
+<p class="note"><strong>Capacity and interpretation.</strong> The buffers retain the same size as in the earlier eight-entry model. Associative memories grow linearly with the number of entries, so the total neural population is not held fixed. The enlarged memories also have different ablation masks and neural realisations. Differences from the earlier model cannot be attributed to lexical load alone. These fixed-seed demonstrations do not establish ablation thresholds for a human lexicon or replace a multi-seed robustness study.</p>
+<p>The model uses whole-word pointers and predefined mappings. There is no learning rule or grammatical grouping on the lemma level. Full WWT task control and semantic/phonological cue trials are not reproduced here. Acoustic and visual preprocessing, sentence processing and articulation are outside this lexical demonstration.</p></section>
+
+<section id="literatur"><h2>7. Scientific background</h2><ul>
+<li>Kröger BJ (2023). The NEF-SPA Approach as a Framework for Developing a Neurobiologically Inspired Spiking Neural Network Model for Speech Production. <em>Journal of Integrative Neuroscience</em> 22:124. <a href="https://doi.org/10.31083/j.jin2205124">Publication</a>.</li>
+<li>Stille C, Bekolay T, Blouw P, Kröger BJ (2020). Modeling the Mental Lexicon as Part of Long-Term and Working Memory and Simulating Lexical Access in a Naming Task Including Semantic and Phonological Cues. <em>Frontiers in Psychology</em> 11:1594. <a href="https://doi.org/10.3389/fpsyg.2020.01594">Publication</a>.</li>
+<li>Kröger BJ, Crawford E, Bekolay T, Eliasmith C (2016). Modeling Interactions between Speech Production and Perception: Speech Error Detection at Semantic and Phonological Levels and the Inner Speech Loop. <em>Frontiers in Computational Neuroscience</em> 10:51. <a href="https://doi.org/10.3389/fncom.2016.00051">Publication</a>.</li>
+<li>Crawford E, Gingerich M, Eliasmith C (2016). Biologically Plausible, Human-Scale Knowledge Representation. <em>Cognitive Science</em> 40:782–821. <a href="https://doi.org/10.1111/cogs.12261">Publication</a>.</li>
+<li>Further reading on sentence processing: Kröger BJ, Bekolay T (2025). A neurobiologically inspired model of sentence comprehension. <em>Language, Cognition and Neuroscience</em> 40:616–639. <a href="https://doi.org/10.1080/23273798.2025.2473537">Publication</a>.</li>
+</ul></section>
+<p><a href="research.htm">← Back to Research</a> · <a href="#">Back to top</a></p>
+</main>
+<footer>Bernd J. Kröger · Documentation under his scientific direction with assistance from ChatGPT · 4 November 2026</footer>
+<script>fetch('header.htm').then(r=>{if(!r.ok)throw new Error('Header');return r.text()}).then(html=>{document.getElementById('header-container').innerHTML=html}).catch(()=>{});</script>
+</body></html>

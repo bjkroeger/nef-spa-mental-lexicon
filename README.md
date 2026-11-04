@@ -1,8 +1,8 @@
-# NEF-SPA mental lexicon: experimental 613-entry lab
+# NEF-SPA mental lexicon: published 613-entry lab
 
 Development snapshot, 4 November 2026. This branch contains 613 lexical entries with dependency-complete semantic and phonological networks, spiking perception/production pathways, and reproducible neuron ablation. The live interface exposes only eight test words: Tasse, Tasche, Kanne, Katze, Teller, Topf, Stuhl, Schrank.
 
-The published website and existing v0.1.0 release are unchanged. This branch contains no deployment scripts or workflows. The original documentation is retained in [docs/eight-word-model.md](docs/eight-word-model.md).
+This branch archives the 613-entry version published on speechtrainer.eu on 4 November 2026, including the live lab, neighbour matrices, five production cases and 48 exact public recordings. The existing v0.1.0 release remains historical. There is no automatic deployment workflow. The original documentation is retained in [docs/eight-word-model.md](docs/eight-word-model.md).
 
 ## Run the live lab
 
@@ -37,7 +37,7 @@ The bundled data suffice for running the lab and ordinary tests; historical WWT 
 OPENBLAS_NUM_THREADS=1 .venv/bin/python benchmark_full_lexicon.py
 ```
 
-The analysis creates a PNG/SVG showing five nearest semantic and phonological neighbours for each test word and a JSON audit in `results/lexicon613/`. The benchmark resets the simulator between inputs and checks all 16 undamaged retrievals against all 613 candidates. Results and large recordings are generated locally and ignored by Git. A compact measured report is included in `docs/baseline_benchmark.json`.
+The analysis creates a PNG/SVG showing five nearest semantic and phonological neighbours for each test word and a JSON audit in `results/lexicon613/`. The benchmark resets the simulator between inputs and checks all 16 undamaged retrievals against all 613 candidates. Analysis results are generated locally and ignored by Git; the 48 published recordings are explicitly tracked under `website/deploy/`. A compact measured report is included in `docs/baseline_benchmark.json`.
 
 Two source-fidelity tests are optional. If you possess the original WWT files:
 
@@ -54,3 +54,20 @@ Extraction parses data assignments without importing or modifying the original s
 - Kröger (2023): https://doi.org/10.31083/j.jin2205124
 
 See [PROVENANCE.md](PROVENANCE.md) for provenance and license status. Developed under the scientific direction of Bernd J. Kröger with assistance from ChatGPT.
+
+## Published snapshot
+
+- [Lexicon Lab](https://speechtrainer.eu/perception-production-model/)
+- [Scientific documentation](https://speechtrainer.eu/nef-spa-lexical-model.htm)
+- `website/deploy/`: exact published HTML, versioned player assets, neighbour data, figures and 48 neural recordings (eight undamaged perception runs plus five production cases for eight words).
+- `website/lexicon613-upload-manifest.json`: SHA-256 hashes of all 56 release files, verified against public HTTPS downloads.
+
+Preview the recorded lab with `python -m http.server 8768 --directory website/deploy`, then open http://localhost:8768/perception-production-model/. The scientific page retains links to the parent website and its shared stylesheet/navigation; those unrelated site resources are not bundled. The lab's brain illustrations use the original speechtrainer.eu image.
+
+`export_demo.py --ui-only` rebuilds the player and neighbour JSON. `export_demo.py` additionally recomputes all 48 runs via `export_ablation_runs.py`; rebuilding is not necessary to replay the archived version. Recalculation can produce environment-dependent numerical differences. For exact published traces use the bundled JSON files.
+
+Remaining-neuron settings (concept / concept-to-lemma memory / lemma): 100/100/100, 50/100/50, 50/70/50, 50/55/50, 50/55/75. Vector seed 10, neural seed 11, ablation seed 2026. Case 3 fails for six of eight test words; Case 4 retrieves six of eight. See `docs/experiment-613.md` for exceptions and threshold interpretation.
+
+Neighbour matrices show static similarities of undamaged stored pointers; ablation affects their neural processing, not these reference similarities. Public sliders are locked to the five cases, while the local live lab retains adjustable sliders.
+
+The archived recordings retain their original source fingerprint. The portable dataset differs from the development dataset only in its source-directory metadata (local absolute path replaced by `2024_Dysfunctions/wwt`), so a new export has a different byte-level fingerprint without changing the model vectors.

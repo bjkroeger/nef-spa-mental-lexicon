@@ -1,0 +1,469 @@
+{
+  "model_version": "613-20261104",
+  "source_fingerprint": "0010ada36264461fb37d4b149e840f381f54be6994c3dda29986d44f7c62e1e7",
+  "lexical_entries": 613,
+  "vector_seed": 10,
+  "neural_seed": 11,
+  "ablation_seed": 2026,
+  "cases": {
+    "reference": [
+      100,
+      100,
+      100
+    ],
+    "buffers": [
+      50,
+      100,
+      50
+    ],
+    "memory70": [
+      50,
+      70,
+      50
+    ],
+    "memory55": [
+      50,
+      55,
+      50
+    ],
+    "lemma75-memory55": [
+      50,
+      55,
+      75
+    ]
+  },
+  "recordings": [
+    {
+      "file": "perception-Kanne.json",
+      "task": "perception",
+      "word": "Kanne",
+      "case": "reference",
+      "winner": "Kanne",
+      "target_mean": 0.9649,
+      "bytes": 30360
+    },
+    {
+      "file": "perception-Katze.json",
+      "task": "perception",
+      "word": "Katze",
+      "case": "reference",
+      "winner": "Katze",
+      "target_mean": 0.9647,
+      "bytes": 30084
+    },
+    {
+      "file": "perception-Schrank.json",
+      "task": "perception",
+      "word": "Schrank",
+      "case": "reference",
+      "winner": "Schrank",
+      "target_mean": 0.9533,
+      "bytes": 30304
+    },
+    {
+      "file": "perception-Stuhl.json",
+      "task": "perception",
+      "word": "Stuhl",
+      "case": "reference",
+      "winner": "Stuhl",
+      "target_mean": 0.9481,
+      "bytes": 30296
+    },
+    {
+      "file": "perception-Tasche.json",
+      "task": "perception",
+      "word": "Tasche",
+      "case": "reference",
+      "winner": "Tasche",
+      "target_mean": 0.9729,
+      "bytes": 30358
+    },
+    {
+      "file": "perception-Tasse.json",
+      "task": "perception",
+      "word": "Tasse",
+      "case": "reference",
+      "winner": "Tasse",
+      "target_mean": 0.954,
+      "bytes": 30091
+    },
+    {
+      "file": "perception-Teller.json",
+      "task": "perception",
+      "word": "Teller",
+      "case": "reference",
+      "winner": "Teller",
+      "target_mean": 0.9792,
+      "bytes": 30150
+    },
+    {
+      "file": "perception-Topf.json",
+      "task": "perception",
+      "word": "Topf",
+      "case": "reference",
+      "winner": "Topf",
+      "target_mean": 0.9574,
+      "bytes": 30285
+    },
+    {
+      "file": "production-Kanne-buffers.json",
+      "task": "production",
+      "word": "Kanne",
+      "case": "buffers",
+      "winner": "Kanne",
+      "target_mean": 0.5275,
+      "bytes": 30466
+    },
+    {
+      "file": "production-Kanne-lemma75-memory55.json",
+      "task": "production",
+      "word": "Kanne",
+      "case": "lemma75-memory55",
+      "winner": "Kanne",
+      "target_mean": 0.3248,
+      "bytes": 30254
+    },
+    {
+      "file": "production-Kanne-memory55.json",
+      "task": "production",
+      "word": "Kanne",
+      "case": "memory55",
+      "winner": null,
+      "target_mean": 0.0007,
+      "bytes": 30224
+    },
+    {
+      "file": "production-Kanne-memory70.json",
+      "task": "production",
+      "word": "Kanne",
+      "case": "memory70",
+      "winner": null,
+      "target_mean": 0.2982,
+      "bytes": 30443
+    },
+    {
+      "file": "production-Kanne.json",
+      "task": "production",
+      "word": "Kanne",
+      "case": "reference",
+      "winner": "Kanne",
+      "target_mean": 0.9729,
+      "bytes": 30334
+    },
+    {
+      "file": "production-Katze-buffers.json",
+      "task": "production",
+      "word": "Katze",
+      "case": "buffers",
+      "winner": "Katze",
+      "target_mean": 0.5166,
+      "bytes": 30200
+    },
+    {
+      "file": "production-Katze-lemma75-memory55.json",
+      "task": "production",
+      "word": "Katze",
+      "case": "lemma75-memory55",
+      "winner": "Katze",
+      "target_mean": 0.5059,
+      "bytes": 30074
+    },
+    {
+      "file": "production-Katze-memory55.json",
+      "task": "production",
+      "word": "Katze",
+      "case": "memory55",
+      "winner": null,
+      "target_mean": 0.0621,
+      "bytes": 30203
+    },
+    {
+      "file": "production-Katze-memory70.json",
+      "task": "production",
+      "word": "Katze",
+      "case": "memory70",
+      "winner": null,
+      "target_mean": 0.1853,
+      "bytes": 30152
+    },
+    {
+      "file": "production-Katze.json",
+      "task": "production",
+      "word": "Katze",
+      "case": "reference",
+      "winner": "Katze",
+      "target_mean": 0.9706,
+      "bytes": 30090
+    },
+    {
+      "file": "production-Schrank-buffers.json",
+      "task": "production",
+      "word": "Schrank",
+      "case": "buffers",
+      "winner": "Schrank",
+      "target_mean": 0.5371,
+      "bytes": 30440
+    },
+    {
+      "file": "production-Schrank-lemma75-memory55.json",
+      "task": "production",
+      "word": "Schrank",
+      "case": "lemma75-memory55",
+      "winner": "Schrank",
+      "target_mean": 0.4712,
+      "bytes": 30249
+    },
+    {
+      "file": "production-Schrank-memory55.json",
+      "task": "production",
+      "word": "Schrank",
+      "case": "memory55",
+      "winner": null,
+      "target_mean": 0.0162,
+      "bytes": 30335
+    },
+    {
+      "file": "production-Schrank-memory70.json",
+      "task": "production",
+      "word": "Schrank",
+      "case": "memory70",
+      "winner": "Schrank",
+      "target_mean": 0.4257,
+      "bytes": 30433
+    },
+    {
+      "file": "production-Schrank.json",
+      "task": "production",
+      "word": "Schrank",
+      "case": "reference",
+      "winner": "Schrank",
+      "target_mean": 0.9616,
+      "bytes": 30288
+    },
+    {
+      "file": "production-Stuhl-buffers.json",
+      "task": "production",
+      "word": "Stuhl",
+      "case": "buffers",
+      "winner": "Stuhl",
+      "target_mean": 0.5283,
+      "bytes": 30374
+    },
+    {
+      "file": "production-Stuhl-lemma75-memory55.json",
+      "task": "production",
+      "word": "Stuhl",
+      "case": "lemma75-memory55",
+      "winner": null,
+      "target_mean": 0.2007,
+      "bytes": 30209
+    },
+    {
+      "file": "production-Stuhl-memory55.json",
+      "task": "production",
+      "word": "Stuhl",
+      "case": "memory55",
+      "winner": null,
+      "target_mean": 0.0001,
+      "bytes": 30208
+    },
+    {
+      "file": "production-Stuhl-memory70.json",
+      "task": "production",
+      "word": "Stuhl",
+      "case": "memory70",
+      "winner": "Stuhl",
+      "target_mean": 0.375,
+      "bytes": 30390
+    },
+    {
+      "file": "production-Stuhl.json",
+      "task": "production",
+      "word": "Stuhl",
+      "case": "reference",
+      "winner": "Stuhl",
+      "target_mean": 0.9464,
+      "bytes": 30348
+    },
+    {
+      "file": "production-Tasche-buffers.json",
+      "task": "production",
+      "word": "Tasche",
+      "case": "buffers",
+      "winner": "Tasche",
+      "target_mean": 0.5224,
+      "bytes": 30442
+    },
+    {
+      "file": "production-Tasche-lemma75-memory55.json",
+      "task": "production",
+      "word": "Tasche",
+      "case": "lemma75-memory55",
+      "winner": "Tasche",
+      "target_mean": 0.474,
+      "bytes": 30325
+    },
+    {
+      "file": "production-Tasche-memory55.json",
+      "task": "production",
+      "word": "Tasche",
+      "case": "memory55",
+      "winner": null,
+      "target_mean": -0.0013,
+      "bytes": 30374
+    },
+    {
+      "file": "production-Tasche-memory70.json",
+      "task": "production",
+      "word": "Tasche",
+      "case": "memory70",
+      "winner": "Tasche",
+      "target_mean": 0.3863,
+      "bytes": 30470
+    },
+    {
+      "file": "production-Tasche.json",
+      "task": "production",
+      "word": "Tasche",
+      "case": "reference",
+      "winner": "Tasche",
+      "target_mean": 0.9726,
+      "bytes": 30370
+    },
+    {
+      "file": "production-Tasse-buffers.json",
+      "task": "production",
+      "word": "Tasse",
+      "case": "buffers",
+      "winner": "Tasse",
+      "target_mean": 0.5078,
+      "bytes": 30142
+    },
+    {
+      "file": "production-Tasse-lemma75-memory55.json",
+      "task": "production",
+      "word": "Tasse",
+      "case": "lemma75-memory55",
+      "winner": "Tasse",
+      "target_mean": 0.6214,
+      "bytes": 30015
+    },
+    {
+      "file": "production-Tasse-memory55.json",
+      "task": "production",
+      "word": "Tasse",
+      "case": "memory55",
+      "winner": "Tasse",
+      "target_mean": 0.3667,
+      "bytes": 30157
+    },
+    {
+      "file": "production-Tasse-memory70.json",
+      "task": "production",
+      "word": "Tasse",
+      "case": "memory70",
+      "winner": "Tasse",
+      "target_mean": 0.3732,
+      "bytes": 30130
+    },
+    {
+      "file": "production-Tasse.json",
+      "task": "production",
+      "word": "Tasse",
+      "case": "reference",
+      "winner": "Tasse",
+      "target_mean": 0.9541,
+      "bytes": 30147
+    },
+    {
+      "file": "production-Teller-buffers.json",
+      "task": "production",
+      "word": "Teller",
+      "case": "buffers",
+      "winner": "Teller",
+      "target_mean": 0.5203,
+      "bytes": 30339
+    },
+    {
+      "file": "production-Teller-lemma75-memory55.json",
+      "task": "production",
+      "word": "Teller",
+      "case": "lemma75-memory55",
+      "winner": null,
+      "target_mean": 0.0006,
+      "bytes": 30069
+    },
+    {
+      "file": "production-Teller-memory55.json",
+      "task": "production",
+      "word": "Teller",
+      "case": "memory55",
+      "winner": null,
+      "target_mean": 0.0006,
+      "bytes": 30255
+    },
+    {
+      "file": "production-Teller-memory70.json",
+      "task": "production",
+      "word": "Teller",
+      "case": "memory70",
+      "winner": null,
+      "target_mean": 0.0006,
+      "bytes": 30252
+    },
+    {
+      "file": "production-Teller.json",
+      "task": "production",
+      "word": "Teller",
+      "case": "reference",
+      "winner": "Teller",
+      "target_mean": 0.9621,
+      "bytes": 30167
+    },
+    {
+      "file": "production-Topf-buffers.json",
+      "task": "production",
+      "word": "Topf",
+      "case": "buffers",
+      "winner": "Topf",
+      "target_mean": 0.5353,
+      "bytes": 30385
+    },
+    {
+      "file": "production-Topf-lemma75-memory55.json",
+      "task": "production",
+      "word": "Topf",
+      "case": "lemma75-memory55",
+      "winner": "Topf",
+      "target_mean": 0.7195,
+      "bytes": 30242
+    },
+    {
+      "file": "production-Topf-memory55.json",
+      "task": "production",
+      "word": "Topf",
+      "case": "memory55",
+      "winner": "Topf",
+      "target_mean": 0.508,
+      "bytes": 30365
+    },
+    {
+      "file": "production-Topf-memory70.json",
+      "task": "production",
+      "word": "Topf",
+      "case": "memory70",
+      "winner": "Topf",
+      "target_mean": 0.5232,
+      "bytes": 30374
+    },
+    {
+      "file": "production-Topf.json",
+      "task": "production",
+      "word": "Topf",
+      "case": "reference",
+      "winner": "Topf",
+      "target_mean": 0.9486,
+      "bytes": 30264
+    }
+  ]
+}

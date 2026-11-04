@@ -5,6 +5,7 @@ const $=id=>document.getElementById(id);
 let task='perception', selected='Kanne', result=null, busy=false, playing=false, frame=null, lastTime=0, position=0;
 const ablation = {};
 const componentNames = {};
+let neighbourData = null;
 const RECORDED = document.body.dataset.mode === 'recorded';
 const productionPresets = [
   {id:'reference', name:'Reference', remaining:[100,100,100], note:'Kanne: with all neurons available, mean phonological target activation is 0.94 and the word is retrieved. This is the reference for the four damage cases.'},
@@ -14,12 +15,15 @@ const productionPresets = [
   {id:'lemma75', name:'Lemma restored to 75%', remaining:[50,80,75], note:'Kanne: restoring the lemma buffer from 50% to 75% remaining neurons brings phonological target activation back to 0.41 and restores retrieval. The concept buffer stays at 50% and the memory at 80%.'},
 ];
 if (!RECORDED) {
+  Object.assign(productionPresets[2], {id:'memory70', name:'Memory at 70%', remaining:[50,70,50]});
+  Object.assign(productionPresets[3], {id:'memory55', name:'Memory at 55%', remaining:[50,55,50]});
+  Object.assign(productionPresets[4], {id:'lemma75-memory55', remaining:[50,55,75]});
   const liveNotes = [
     'Kanne: in the 613-entry lexicon, undamaged mean phonological target activation is 0.973. The word is retrieved against all 613 candidates.',
     'Kanne: with 50% of concept and lemma neurons remaining, mean phonological target activation falls from 0.973 to 0.528. Retrieval still succeeds.',
-    'Kanne: with both buffers at 50% and the concept-to-lemma memory at 90%, mean phonological target activation remains near 0.53 (0.530). Retrieval still succeeds; damage effects need not be strictly monotonic.',
-    'Kanne: with both buffers at 50% and the memory at 80%, mean phonological target activation falls to 0.411. Retrieval still succeeds in this expanded model.',
-    'Kanne: restoring the lemma buffer to 75%, with the concept buffer at 50% and the memory at 80%, raises mean phonological target activation from 0.411 to 0.636. The word remains correctly retrieved.'
+    'Kanne: with both buffers at 50% and the concept-to-lemma memory at 70%, mean phonological target activation is 0.298. Kanne remains the strongest candidate, but lies just below the 0.30 retrieval threshold. This is a borderline case, not a formally successful retrieval.',
+    'Kanne: with both buffers at 50% and the concept-to-lemma memory at 55%, mean phonological target activation is approximately 0.001. No word is retrieved.',
+    'Kanne: restoring the lemma buffer from 50% to 75%, with the concept buffer at 50% and the memory at 55%, brings mean phonological target activation to 0.325. Kanne is correctly retrieved, although the target value is only 0.025 above the 0.30 threshold.'
   ];
   productionPresets.forEach((preset, i) => { preset.note = liveNotes[i]; });
 }
@@ -79,6 +83,7 @@ function renderDamage() {
   updateDamage();
 }
 function updateDamage() {
+  renderNeighbours();
   if (!$('lexicon-schema')) return;
   for(const [key,value] of Object.entries(ablation)) {
     const input=$('remaining-'+key);input.value=100-value;input.disabled=busy || RECORDED;
@@ -100,3 +105,42 @@ $('perception').onclick=()=>setTask('perception');$('production').onclick=()=>se
 renderPresets();
 renderDamage();
 setTask('perception');
+
+// Static template geometry: task changes and ablation never alter these values.
+
+function renderNeighbours() {
+  if (!neighbourData || RECORDED) return;
+  const selectedOnly = $('neighbours-selected-only').checked;
+  const tables = ['concept', 'phonology'].map(level => {
+    const wrapper = document.createElement('div'); wrapper.className = 'neighbours-table-wrap';
+    const table = document.createElement('table'); table.className = 'neighbours-table';
+    const caption = table.createCaption(); caption.textContent = level === 'concept' ? 'Semantic neighbours' : 'Phonological neighbours';
+    const head = table.createTHead().insertRow();
+    ['Word', '1st', '2nd', '3rd', '4th', '5th'].forEach(label => { const th = document.createElement('th'); th.scope = 'col'; th.textContent = label; head.append(th); });
+    const body = table.createTBody();
+    neighbourData.words.forEach((word, i) => {
+      if (selectedOnly && word !== selected) return;
+      const row = body.insertRow(); row.classList.toggle('selected-neighbour', word === selected);
+      const th = document.createElement('th'); th.scope = 'row'; th.textContent = word; if(word === selected) th.setAttribute('aria-label', word + ', selected input'); row.append(th);
+      neighbourData.levels[level][i].forEach(item => {
+        const cell = row.insertCell(), name = document.createElement(words.includes(item.word) ? 'strong' : 'span'), score = document.createElement('span');
+        name.textContent = item.word; score.textContent = item.similarity.toFixed(3); score.className = 'neighbour-score';
+        const strength = Math.max(0, Math.min(1, item.similarity));
+        cell.style.backgroundColor = `hsl(174 36% ${97-strength*66}%)`;
+        cell.style.color = strength > .7 ? '#fff' : '#173d36';
+        cell.append(name, score); row.append(cell);
+      });
+    });
+    wrapper.append(table); return wrapper;
+  });
+  $('neighbours-tables').replaceChildren(...tables);
+  $('neighbours-status').textContent = 'Selected input: ' + selected + ' · ' + neighbourData.lexicon_size + ' entries · 512 dimensions · vector seed 10';
+}
+async function loadNeighbours() {
+  if (RECORDED || !$('neighbours')) return;
+  $('neighbours').hidden = false;
+  $('neighbours-selected-only').onchange = renderNeighbours;
+  try { neighbourData = await jsonFetch('/api/neighbours'); renderNeighbours(); }
+  catch(e) { $('neighbours-status').textContent = 'Lexical neighbours could not be loaded. ' + e.message; }
+}
+loadNeighbours();

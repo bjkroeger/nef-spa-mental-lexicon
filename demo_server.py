@@ -12,7 +12,8 @@ import numpy as np
 import nengo
 import perception
 import production
-from lexicon_vectors import load_lexicon
+from lexicon_vectors import load_lexicon, representations
+from functools import lru_cache
 
 ROOT = Path(__file__).parent
 LEXICON = load_lexicon()
@@ -25,6 +26,26 @@ JOBS = {}
 LOCK = threading.Lock()
 CACHE = OrderedDict()
 CACHE_LIMIT = 64
+
+
+@lru_cache(maxsize=1)
+def neighbours():
+    """Undamaged template similarities, independent of task and ablation."""
+    words = [e['word'] for e in ENTRIES]
+    indices = [words.index(w) for w in WORDS]
+    result = dict(words=WORDS, lexicon_size=len(words), dimensions=512, vector_seed=10,
+                  measure='cosine similarity of undamaged templates', levels={})
+    for level, vectors in representations(LEXICON).items():
+        if level == 'lemma':
+            continue
+        scores = vectors[indices] @ vectors.T
+        rows = []
+        for row, index in enumerate(indices):
+            scores[row, index] = -np.inf
+            nearest = np.argsort(scores[row])[-5:][::-1]
+            rows.append([dict(word=words[i], similarity=float(scores[row, i])) for i in nearest])
+        result['levels'][level] = rows
+    return result
 
 
 def simulate(task, word, ablation=None):
@@ -41,34 +62,41 @@ def simulate(task, word, ablation=None):
     with nengo.Simulator(model, dt=.001, progress_bar=False) as sim:
         damage = apply_ablation(sim, model.ablation_targets, ablation)
         sim.run(1.1)
-        times = sim.trange()
-        steady = (times >= .45) & (times < .70)
-        levels = {k: sim.data[probes[k]] @ v.T for k, v in vectors.items()}
-        end = 'concept' if task == 'perception' else 'phonology'
-        # Decide against the entire lexicon, not just the eight visible rows.
-        all_means = sim.data[probes[end]][steady].mean(axis=0) @ model.lexicon_vectors[end].T
-        means = all_means[model.display_indices]
-        winner = int(np.argmax(all_means))
-        # Reject an absent/ambiguous retrieval instead of copying the input to output.
-        ordered = np.sort(all_means)
-        accepted = bool(ordered[-1] > .3 and ordered[-1] - ordered[-2] > .1)
-        winner_word = model.lexicon_words[winner] if accepted else None
-        result = dict(task=task, input=word, words=words, time=times[::10].round(3).tolist(),
-                      levels={k: v[::10].round(4).tolist() for k, v in levels.items()},
-                      selections={k: sim.data[p][::10].round(4).tolist() for k,p in probes.items() if k.endswith('_entries')},
-                      means=means.round(4).tolist(), winner=winner_word,
-                      correct=accepted and winner_word == word, cached=False,
-                      lexicon_size=len(model.lexicon_words),
-                      elapsed_seconds=time.monotonic()-started,
-                      top_candidates=[dict(word=model.lexicon_words[i], similarity=float(all_means[i]))
-                                      for i in np.argsort(all_means)[-5:][::-1]],
-                      ablation=ablation, damage=damage, ablation_seed=ABLATION_SEED,
-                      neurons=sum(e.n_neurons for e in model.all_ensembles),
-                      code=IPA.get(winner_word) if accepted and task == 'production' else None,
-                      pointer=model.lexicon_entries[winner]['phonology'] if accepted and task == 'production' else None)
+        result = recording_from_sim(sim, model, probes, words, vectors, task, word,
+                                    ablation, damage, started)
     CACHE[key] = result
     if len(CACHE) > CACHE_LIMIT:
         CACHE.popitem(last=False)
+    return result
+
+
+def recording_from_sim(sim, model, probes, words, vectors, task, word, ablation, damage, started):
+    """Export the same observations for a live run or a reset offline simulator."""
+    times = sim.trange()
+    steady = (times >= .45) & (times < .70)
+    levels = {k: sim.data[probes[k]] @ v.T for k, v in vectors.items()}
+    end = 'concept' if task == 'perception' else 'phonology'
+    # Decide against the entire lexicon, not just the eight visible rows.
+    all_means = sim.data[probes[end]][steady].mean(axis=0) @ model.lexicon_vectors[end].T
+    means = all_means[model.display_indices]
+    winner = int(np.argmax(all_means))
+    # Reject an absent/ambiguous retrieval instead of copying the input to output.
+    ordered = np.sort(all_means)
+    accepted = bool(ordered[-1] > .3 and ordered[-1] - ordered[-2] > .1)
+    winner_word = model.lexicon_words[winner] if accepted else None
+    result = dict(task=task, input=word, words=words, time=times[::10].round(3).tolist(),
+                  levels={k: v[::10].round(4).tolist() for k, v in levels.items()},
+                  selections={k: sim.data[p][::10].round(4).tolist() for k,p in probes.items() if k.endswith('_entries')},
+                  means=means.round(4).tolist(), winner=winner_word,
+                  correct=accepted and winner_word == word, cached=False,
+                  lexicon_size=len(model.lexicon_words),
+                  elapsed_seconds=time.monotonic()-started,
+                  top_candidates=[dict(word=model.lexicon_words[i], similarity=float(all_means[i]))
+                                  for i in np.argsort(all_means)[-5:][::-1]],
+                  ablation=ablation, damage=damage, ablation_seed=ABLATION_SEED,
+                  neurons=sum(e.n_neurons for e in model.all_ensembles),
+                  code=IPA.get(winner_word) if accepted and task == 'production' else None,
+                  pointer=model.lexicon_entries[winner]['phonology'] if accepted and task == 'production' else None)
     return result
 
 
@@ -83,6 +111,8 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        if self.path == '/api/neighbours':
+            return self.reply(200, neighbours())
         if self.path == '/api/words':
             return self.reply(200, WORDS)
         if self.path.startswith('/api/jobs/'):
