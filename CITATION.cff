@@ -1,12 +1,11 @@
 cff-version: 1.2.0
 message: "Please cite the scientific publications listed in README.md as well as this implementation when appropriate."
-title: "NEF-SPA Mental Lexicon: An Eight-Word Core Model"
+title: "NEF-SPA Mental Lexicon: 613-Entry Experimental Lab"
 type: software
 authors:
   - family-names: "Kröger"
     given-names: "Bernd J."
-version: 0.1.0
-date-released: 2026-11-03
+version: 0.2.0.dev0
 repository-code: "https://github.com/bjkroeger/nef-spa-mental-lexicon"
 url: "https://www.speechtrainer.eu/nef-spa-model.htm"
-abstract: "Recursive WWT vector representations and unlesioned perception and production experiments, developed under the scientific direction of Bernd J. Kröger with assistance from ChatGPT."
+abstract: "Recursive WWT vector representations, live perception and production, and reproducible ablation experiments, developed under the scientific direction of Bernd J. Kröger with assistance from ChatGPT."

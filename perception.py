@@ -12,29 +12,35 @@ import nengo
 import nengo_spa as spa
 import numpy as np
 
-from lexicon_vectors import load_data, representations
+from lexicon_vectors import load_lexicon, representations
 
-OUT = Path(__file__).parent / 'results' / 'perception_kanne'
+OUT = Path(__file__).parent / 'results' / 'lexicon613' / 'perception_kanne'
 
 
-def build_model():
-    data = load_data()
+def build_model(word='Kanne'):
+    data = load_lexicon()
     vectors = representations(data, dimensions=512, seed=10)
     words = [e['word'] for e in data['entries']]
-    target = words.index('Kanne')
+    target = words.index(word)
+    display_words = data['display_words']
+    display_indices = [words.index(w) for w in display_words]
+    if word not in display_words:
+        raise ValueError('Choose one of the eight display words')
     vocabs = {}
     for level, values in vectors.items():
         vocab = spa.Vocabulary(512, strict=True)
-        for word, vector in zip(words, values):
-            vocab.add(word, spa.SemanticPointer(vector))
+        for i, vector in enumerate(values):
+            # SPA identifiers are ASCII-only; labels such as Straße stay external.
+            vocab.add(f'Entry{i}', spa.SemanticPointer(vector))
         vocabs[level] = vocab
-    with spa.Network(seed=11, label='Ungeschaedigte Perzeption: Kanne') as model:
+    with spa.Network(seed=11, label=f'Ungeschaedigte Perzeption: {word}') as model:
         model.config[nengo.Ensemble].neuron_type = nengo.LIF()
         states = {level: spa.State(vocab=vocab, subdimensions=1,
                                   neurons_per_dimension=50, feedback=0,
                                   represent_cc_identity=False, label=level)
                   for level, vocab in vocabs.items()}
-        stimulus = nengo.Node(lambda t: vectors['phonology'][target] if .15 <= t < .75 else np.zeros(512), label='Phonologischer Input Kanne')
+        model.stimulus_index = target
+        stimulus = nengo.Node(lambda t: vectors['phonology'][model.stimulus_index] if .15 <= t < .75 else np.zeros(512), label=f'Phonologischer Input {word}')
         nengo.Connection(stimulus, states['phonology'].input, synapse=.01)
         # WWT perception uses competitive cleanup at the phonology-to-lemma step.
         p2l = spa.WTAAssocMem(threshold=.3, input_vocab=vocabs['phonology'],
@@ -50,14 +56,24 @@ def build_model():
                              (l2c.output, states['concept'].input)]:
             nengo.Connection(source, dest, synapse=.01)
         probes = {level: nengo.Probe(state.output, synapse=.02) for level, state in states.items()}
-        probes['lemma_entries'] = nengo.Probe(p2l.selection.output, synapse=.02)
+        probes['lemma_entries'] = nengo.Probe(p2l.selection.output[display_indices], synapse=.02)
         # These are the selected mappings keyed by lemma, not concept-buffer similarities.
-        probes['concept_entries'] = nengo.Probe(l2c.selection.output, synapse=.02)
-        # Store actual spikes of the eight selection populations to verify spiking execution.
+        probes['concept_entries'] = nengo.Probe(l2c.selection.output[display_indices], synapse=.02)
+        # Probe only the displayed populations; all 613 populations participate.
         for label, memory in [('p2l', p2l), ('l2c', l2c)]:
             for i, ens in enumerate(memory.selection.thresholding.ensembles):
-                probes[f'spikes_{label}_{i}'] = nengo.Probe(ens.neurons)
-    return model, probes, words, vectors, target
+                if i in display_indices:
+                    probes[f'spikes_{label}_{display_indices.index(i)}'] = nengo.Probe(ens.neurons)
+    # Component references for optional post-build ablation in the live lab.
+    model.ablation_targets = {f'perception_{level}': state for level, state in states.items()}
+    model.ablation_targets.update({'perception_p2l': p2l, 'perception_l2c': l2c})
+    model.lexicon_words = words
+    model.lexicon_vectors = vectors
+    model.lexicon_entries = data['entries']
+    model.display_indices = display_indices
+    return (model, probes, display_words,
+            {level: values[display_indices] for level, values in vectors.items()},
+            display_words.index(word))
 
 
 def main():
@@ -98,6 +114,10 @@ def main():
                   concept_similarity_residual=(observed-predicted).tolist(),
                   concept_vector_relative_residual=float(np.linalg.norm(mean_concept-amplitude*target_vector)/np.linalg.norm(mean_concept)),
                   selection_spike_counts=spike_counts)
+    full_scores = model.lexicon_vectors['concept'] @ recordings['concept'][steady].mean(axis=0)
+    report['lexicon_size'] = len(model.lexicon_words)
+    report['lexicon_winner'] = model.lexicon_words[int(np.argmax(full_scores))]
+    assert report['lexicon_winner'] == words[target]
     # Outcome checks target actual lexical transfer, not merely graph construction.
     for level in ['lemma','concept']:
         assert int(np.argmax(report['mean_similarities'][level])) == target, level

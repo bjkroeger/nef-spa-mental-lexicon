@@ -1,0 +1,503 @@
+{
+  "lexical_entries": 613,
+  "dimensions": 512,
+  "vector_seed": 10,
+  "neural_seed": 11,
+  "duration_seconds": 1.1,
+  "dt": 0.001,
+  "retrieval_rule": "largest full-lexicon dot product > 0.3, margin > 0.1",
+  "pathways": {
+    "production": {
+      "build_seconds": 25.218655584030785,
+      "neurons": 199400,
+      "runs": [
+        {
+          "input": "Tasse",
+          "winner": "Tasse",
+          "correct": true,
+          "target_similarity": 0.9541348412249379,
+          "margin": 0.4504401647271178,
+          "run_seconds": 10.134894040995277,
+          "top_candidates": [
+            {
+              "word": "Tasse",
+              "similarity": 0.9541348412249379
+            },
+            {
+              "word": "Untertasse",
+              "similarity": 0.5036946764978201
+            },
+            {
+              "word": "Reisetasche",
+              "similarity": 0.46288520431469027
+            },
+            {
+              "word": "Straße",
+              "similarity": 0.42997673379229373
+            },
+            {
+              "word": "Reise",
+              "similarity": 0.40485811026375834
+            }
+          ]
+        },
+        {
+          "input": "Tasche",
+          "winner": "Tasche",
+          "correct": true,
+          "target_similarity": 0.9725772362164165,
+          "margin": 0.42859207123465004,
+          "run_seconds": 9.029818917042576,
+          "top_candidates": [
+            {
+              "word": "Tasche",
+              "similarity": 0.9725772362164165
+            },
+            {
+              "word": "Reisetasche",
+              "similarity": 0.5439851649817664
+            },
+            {
+              "word": "Schlaeger",
+              "similarity": 0.2612816712041274
+            },
+            {
+              "word": "Schnee",
+              "similarity": 0.25899007377120975
+            },
+            {
+              "word": "Tisch",
+              "similarity": 0.25791500098034514
+            }
+          ]
+        },
+        {
+          "input": "Kanne",
+          "winner": "Kanne",
+          "correct": true,
+          "target_similarity": 0.9728978779315733,
+          "margin": 0.4109899938621171,
+          "run_seconds": 8.912233249982819,
+          "top_candidates": [
+            {
+              "word": "Kanne",
+              "similarity": 0.9728978779315733
+            },
+            {
+              "word": "Krone",
+              "similarity": 0.5619078840694562
+            },
+            {
+              "word": "Karneval",
+              "similarity": 0.49157959898518305
+            },
+            {
+              "word": "Kalt",
+              "similarity": 0.44037831175179354
+            },
+            {
+              "word": "Katze",
+              "similarity": 0.4070247919270814
+            }
+          ]
+        },
+        {
+          "input": "Katze",
+          "winner": "Katze",
+          "correct": true,
+          "target_similarity": 0.9705534172809324,
+          "margin": 0.5624030498244713,
+          "run_seconds": 9.792236540990416,
+          "top_candidates": [
+            {
+              "word": "Katze",
+              "similarity": 0.9705534172809324
+            },
+            {
+              "word": "Kanne",
+              "similarity": 0.40815036745646105
+            },
+            {
+              "word": "Schnauze",
+              "similarity": 0.40412148358465794
+            },
+            {
+              "word": "Muetze",
+              "similarity": 0.39080171157805543
+            },
+            {
+              "word": "Kaffee",
+              "similarity": 0.34817614338146136
+            }
+          ]
+        },
+        {
+          "input": "Teller",
+          "winner": "Teller",
+          "correct": true,
+          "target_similarity": 0.9621321561042833,
+          "margin": 0.5739286312397935,
+          "run_seconds": 9.751042041985784,
+          "top_candidates": [
+            {
+              "word": "Teller",
+              "similarity": 0.9621321561042833
+            },
+            {
+              "word": "Schaeler",
+              "similarity": 0.3882035248644898
+            },
+            {
+              "word": "Rollen",
+              "similarity": 0.34815579691177934
+            },
+            {
+              "word": "Kuenstler",
+              "similarity": 0.34417871392308574
+            },
+            {
+              "word": "Haesslich",
+              "similarity": 0.333816374351751
+            }
+          ]
+        },
+        {
+          "input": "Topf",
+          "winner": "Topf",
+          "correct": true,
+          "target_similarity": 0.9486072595976152,
+          "margin": 0.5790556360107947,
+          "run_seconds": 10.2067495000083,
+          "top_candidates": [
+            {
+              "word": "Topf",
+              "similarity": 0.9486072595976152
+            },
+            {
+              "word": "Stofftier",
+              "similarity": 0.3695516235868205
+            },
+            {
+              "word": "Tier",
+              "similarity": 0.33679099627798215
+            },
+            {
+              "word": "Tor",
+              "similarity": 0.3177132246241137
+            },
+            {
+              "word": "Pflanzenteil",
+              "similarity": 0.30716137027105017
+            }
+          ]
+        },
+        {
+          "input": "Stuhl",
+          "winner": "Stuhl",
+          "correct": true,
+          "target_similarity": 0.9464086392166341,
+          "margin": 0.4604513685537143,
+          "run_seconds": 10.109904124983586,
+          "top_candidates": [
+            {
+              "word": "Stuhl",
+              "similarity": 0.9464086392166341
+            },
+            {
+              "word": "Stoff",
+              "similarity": 0.48595727066291977
+            },
+            {
+              "word": "Stab",
+              "similarity": 0.47724334438512034
+            },
+            {
+              "word": "Stift",
+              "similarity": 0.47336203404062976
+            },
+            {
+              "word": "Stein",
+              "similarity": 0.4641196993308868
+            }
+          ]
+        },
+        {
+          "input": "Schrank",
+          "winner": "Schrank",
+          "correct": true,
+          "target_similarity": 0.9615801821182963,
+          "margin": 0.44466874598219475,
+          "run_seconds": 9.22364295803709,
+          "top_candidates": [
+            {
+              "word": "Schrank",
+              "similarity": 0.9615801821182963
+            },
+            {
+              "word": "Kuehlschrank",
+              "similarity": 0.5169114361361016
+            },
+            {
+              "word": "Spitz",
+              "similarity": 0.369017919024183
+            },
+            {
+              "word": "Strom",
+              "similarity": 0.33747922864882374
+            },
+            {
+              "word": "Stumpf",
+              "similarity": 0.33701203693370774
+            }
+          ]
+        }
+      ]
+    },
+    "perception": {
+      "build_seconds": 29.122256250004284,
+      "neurons": 199400,
+      "runs": [
+        {
+          "input": "Tasse",
+          "winner": "Tasse",
+          "correct": true,
+          "target_similarity": 0.9540446577202787,
+          "margin": 0.5159559586110478,
+          "run_seconds": 9.7953480000142,
+          "top_candidates": [
+            {
+              "word": "Tasse",
+              "similarity": 0.9540446577202787
+            },
+            {
+              "word": "Kanne",
+              "similarity": 0.4380886991092309
+            },
+            {
+              "word": "Heiß",
+              "similarity": 0.4167262618068309
+            },
+            {
+              "word": "Kaffee",
+              "similarity": 0.40687935608283793
+            },
+            {
+              "word": "Tischdecken",
+              "similarity": 0.3996309107045575
+            }
+          ]
+        },
+        {
+          "input": "Tasche",
+          "winner": "Tasche",
+          "correct": true,
+          "target_similarity": 0.9729475807646605,
+          "margin": 0.46209916955231767,
+          "run_seconds": 10.234208541049156,
+          "top_candidates": [
+            {
+              "word": "Tasche",
+              "similarity": 0.9729475807646605
+            },
+            {
+              "word": "Drehen",
+              "similarity": 0.5108484112123428
+            },
+            {
+              "word": "Druecken",
+              "similarity": 0.5010373176721683
+            },
+            {
+              "word": "Suessigkeiten",
+              "similarity": 0.4652171342085347
+            },
+            {
+              "word": "Fahrkarten",
+              "similarity": 0.4356820873187803
+            }
+          ]
+        },
+        {
+          "input": "Kanne",
+          "winner": "Kanne",
+          "correct": true,
+          "target_similarity": 0.9648766891334941,
+          "margin": 0.4389026558525757,
+          "run_seconds": 10.004822292015888,
+          "top_candidates": [
+            {
+              "word": "Kanne",
+              "similarity": 0.9648766891334941
+            },
+            {
+              "word": "Topf",
+              "similarity": 0.5259740332809184
+            },
+            {
+              "word": "Heiß",
+              "similarity": 0.5134195562261814
+            },
+            {
+              "word": "Kaffee",
+              "similarity": 0.5082424366185553
+            },
+            {
+              "word": "Verbrennen",
+              "similarity": 0.45329564665652305
+            }
+          ]
+        },
+        {
+          "input": "Katze",
+          "winner": "Katze",
+          "correct": true,
+          "target_similarity": 0.9646941366547992,
+          "margin": 0.4549960639243176,
+          "run_seconds": 10.122223667043727,
+          "top_candidates": [
+            {
+              "word": "Katze",
+              "similarity": 0.9646941366547992
+            },
+            {
+              "word": "Schnauze",
+              "similarity": 0.5096980727304816
+            },
+            {
+              "word": "Maul",
+              "similarity": 0.44414397340103473
+            },
+            {
+              "word": "Napf",
+              "similarity": 0.43792234323120294
+            },
+            {
+              "word": "Futter",
+              "similarity": 0.3778865246110591
+            }
+          ]
+        },
+        {
+          "input": "Teller",
+          "winner": "Teller",
+          "correct": true,
+          "target_similarity": 0.9791927406400759,
+          "margin": 0.4791070217805129,
+          "run_seconds": 9.796643709007185,
+          "top_candidates": [
+            {
+              "word": "Teller",
+              "similarity": 0.9791927406400759
+            },
+            {
+              "word": "Sachen",
+              "similarity": 0.500085718859563
+            },
+            {
+              "word": "Tischdecken",
+              "similarity": 0.3987000354038104
+            },
+            {
+              "word": "Handtuch",
+              "similarity": 0.3926577698709054
+            },
+            {
+              "word": "Schuessel",
+              "similarity": 0.3642637349515003
+            }
+          ]
+        },
+        {
+          "input": "Topf",
+          "winner": "Topf",
+          "correct": true,
+          "target_similarity": 0.9573534148106335,
+          "margin": 0.4371545700694506,
+          "run_seconds": 9.865791749965865,
+          "top_candidates": [
+            {
+              "word": "Topf",
+              "similarity": 0.9573534148106335
+            },
+            {
+              "word": "Kanne",
+              "similarity": 0.5201988447411829
+            },
+            {
+              "word": "Heiß",
+              "similarity": 0.482101090137837
+            },
+            {
+              "word": "Kaffee",
+              "similarity": 0.47005592490810316
+            },
+            {
+              "word": "Verbrennen",
+              "similarity": 0.4169844102966849
+            }
+          ]
+        },
+        {
+          "input": "Stuhl",
+          "winner": "Stuhl",
+          "correct": true,
+          "target_similarity": 0.9481152503513552,
+          "margin": 0.6303880953143359,
+          "run_seconds": 9.68048112501856,
+          "top_candidates": [
+            {
+              "word": "Stuhl",
+              "similarity": 0.9481152503513552
+            },
+            {
+              "word": "Haus",
+              "similarity": 0.3177271550370193
+            },
+            {
+              "word": "Sofa",
+              "similarity": 0.29044920877952307
+            },
+            {
+              "word": "Tisch",
+              "similarity": 0.27816587564388406
+            },
+            {
+              "word": "Schrank",
+              "similarity": 0.2737564351081329
+            }
+          ]
+        },
+        {
+          "input": "Schrank",
+          "winner": "Schrank",
+          "correct": true,
+          "target_similarity": 0.9533199775148495,
+          "margin": 0.5658060680065691,
+          "run_seconds": 9.803583542001434,
+          "top_candidates": [
+            {
+              "word": "Schrank",
+              "similarity": 0.9533199775148495
+            },
+            {
+              "word": "Sofa",
+              "similarity": 0.3875139095082804
+            },
+            {
+              "word": "Wohnung",
+              "similarity": 0.3809392004554838
+            },
+            {
+              "word": "Tisch",
+              "similarity": 0.36761136081699913
+            },
+            {
+              "word": "Haus",
+              "similarity": 0.343371084543345
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

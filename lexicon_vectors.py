@@ -11,10 +11,17 @@ import numpy as np
 import nengo_spa as spa
 
 DATA = Path(__file__).parent / 'data' / 'wwt_eight_words.json'
+FULL_DATA = DATA.with_name('wwt_full_lexicon.json')
 
 
 def load_data():
+    """Historical eight-word fixture for reproducible original analyses."""
     return json.loads(DATA.read_text())
+
+
+def load_lexicon():
+    """Active 613-entry lexicon; never silently fall back to the old subset."""
+    return json.loads(FULL_DATA.read_text())
 
 
 def unit_vector(dimensions, seed, namespace, key):
