@@ -1,0 +1,218 @@
+{
+  "nef-spa-lexical-model.htm": {
+    "bytes": 23575,
+    "sha256": "a2fa767750e9b84438700ab09ad8bb10361d29e3151dc8a70dc960a6b87914af"
+  },
+  "perception-production-model/app-613-syllabification-20261105.js": {
+    "bytes": 22012,
+    "sha256": "d0e76ce3dfa30f93091ba9c02db250aa24847aa918028653b8824e734325aa25"
+  },
+  "perception-production-model/index.html": {
+    "bytes": 14746,
+    "sha256": "0f66f32314ff6d327ccacc90e85336000fa1d2398ac9b2cc45c66008545e043b"
+  },
+  "perception-production-model/manifest-613-syllabification-20261105.json": {
+    "bytes": 15908,
+    "sha256": "daf4a137dd8c0a903ced0abb4f006276c4d8d68179f0ec4d9fba0d39e6986e4d"
+  },
+  "perception-production-model/neighbours-613-syllabification-20261105.json": {
+    "bytes": 4321,
+    "sha256": "470e16b1178d50c837122255d63c36c1b4ffd392f5dfeef0e12376f0a8a7ff88"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Kanne.json": {
+    "bytes": 30627,
+    "sha256": "deb2a4df9c21159f75ceea5de52d9c24fdc8f9f3fb6df79694b2caa220d13c43"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Katze.json": {
+    "bytes": 30351,
+    "sha256": "2489ea865ecfa7f5880a7ace41fdcc691290217a749b177ad60df21f36ebdee2"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Schrank.json": {
+    "bytes": 30571,
+    "sha256": "c806e35e0f70b0aa93e6e279e86eec5c01c6e593f051372ed3439e48ae6c1ac0"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Stuhl.json": {
+    "bytes": 30563,
+    "sha256": "14aeb1f6dbc4ea66c319f8e3427d35f5db3612ddca45f031b804691275845417"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Tasche.json": {
+    "bytes": 30625,
+    "sha256": "7ffb7e1ad918f1ffbb56b58de42c87c6da4301a07e7ad69cadaea7ffff8bcba8"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Tasse.json": {
+    "bytes": 30358,
+    "sha256": "c17055d7e27402661303d3ef88e190acfb232b1fc92a873cd75cc946233f1d6d"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Teller.json": {
+    "bytes": 30417,
+    "sha256": "127326f266c9b15081f11d0f5be76386e3b7286915e23e7042d17319d62efe27"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/perception-Topf.json": {
+    "bytes": 30552,
+    "sha256": "87412fafa9f0de37b362d6c2552a5cab9be6bf2507fff1c0cc312d5cbf3d72c9"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Kanne-buffers.json": {
+    "bytes": 31704,
+    "sha256": "b0c40cc29cfa4fd527cab53daf26fab863b500ca5cf6d0d9922b401528f79e13"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Kanne-lemma75-memory55.json": {
+    "bytes": 31492,
+    "sha256": "4721fa1ba518f0abd5acd783aac95346308dbdd99c21f6ca8deadafd5789c9d1"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Kanne-memory55.json": {
+    "bytes": 30539,
+    "sha256": "69e720d2bece525484176d0113bd17e88a5c91196da57cf8259ffaeb0f607eeb"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Kanne-memory70.json": {
+    "bytes": 30758,
+    "sha256": "926a63c833ce4bde49570f56e9ffa50432972a27c4610795bef463e1c595fce2"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Kanne.json": {
+    "bytes": 31572,
+    "sha256": "85da03e4acc9d94865dff33c73fcf7874db4875bb898086d670c7f52e406d59d"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Katze-buffers.json": {
+    "bytes": 31550,
+    "sha256": "90c0c0cda1821abf7dda537d5272b97146ec8023176bd99c1cdebd30f512d5fd"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Katze-lemma75-memory55.json": {
+    "bytes": 31424,
+    "sha256": "163a5ab97a58bf3570efdb6b0d48d866a080d103885b969b7b1c2c5216ee095c"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Katze-memory55.json": {
+    "bytes": 30518,
+    "sha256": "fc1dc63f9f0bc13c2c56d8d7ea090e4f07fa2030e79df674838fd4456a14c2c2"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Katze-memory70.json": {
+    "bytes": 30467,
+    "sha256": "8e7068395d70593c728da15f0a9131a7719f54ae5a6c601c3fbd090e9c0911ce"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Katze.json": {
+    "bytes": 31440,
+    "sha256": "ecb3bf6c07a6167c14ec99ceac8e8673b40ae1944adf843307d247dc9ae47b64"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Schrank-buffers.json": {
+    "bytes": 31584,
+    "sha256": "086726a41a1494e1fa0c2dc55031cdd61e3389383d49a7a1093ba9fee73e272b"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Schrank-lemma75-memory55.json": {
+    "bytes": 31393,
+    "sha256": "f22f839f2010307fefd1fd9c1ec447c886e18fdde878023abd81e9a440229088"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Schrank-memory55.json": {
+    "bytes": 30650,
+    "sha256": "fd1a0fd9b1112e73cea1d675524d021f07e362775ce4268e71f3557c8ba6e0ee"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Schrank-memory70.json": {
+    "bytes": 31577,
+    "sha256": "10cf17305978ee76dbe2a719d02c9c53e58ebbb5a48b3e57607687a75f907e90"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Schrank.json": {
+    "bytes": 31432,
+    "sha256": "9919de49818c14cb8741460b564e460c68520ab739f805d06fc6e1d8c0852a65"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Stuhl-buffers.json": {
+    "bytes": 31405,
+    "sha256": "6af2ed6e070bc2d746091d5b1d2bd6946b11baa96aced93561ee061e6d55c6de"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Stuhl-lemma75-memory55.json": {
+    "bytes": 30524,
+    "sha256": "ffb5e415afe1bc79d61ab4cc0e152ca00d1e58078e06a0a696edee44b5647f9a"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Stuhl-memory55.json": {
+    "bytes": 30523,
+    "sha256": "236aa35f18510541d5d4b6be76e549149893a79e9251279e68ba3c077323a7be"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Stuhl-memory70.json": {
+    "bytes": 31421,
+    "sha256": "51bb586c7de211b6435c3f83bafe71274a49f9726fdebb7137f660e60d1fd86d"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Stuhl.json": {
+    "bytes": 31379,
+    "sha256": "8e7d67daebd22c74afb1426e27f809a2620bb5474008c912bed37996603aff9b"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasche-buffers.json": {
+    "bytes": 31773,
+    "sha256": "e16d919e3603f3bc14aa51aaf70c238cd045ba50d289a4a417d7c862e0f510e2"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasche-lemma75-memory55.json": {
+    "bytes": 31656,
+    "sha256": "0f1e6fba2c12e82a1a375c3b3dbd65e3c0dab5dd5178e746499c13692c8ee28d"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasche-memory55.json": {
+    "bytes": 30689,
+    "sha256": "9fda018c62f9760ce3c8a5ca07be6c31445c8a6379ae92b19000e1b48172f848"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasche-memory70.json": {
+    "bytes": 31801,
+    "sha256": "44dddf00980e3ebed71cf900dc4fa00fadf2e5a7849b2539609f73f7283c8873"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasche.json": {
+    "bytes": 31701,
+    "sha256": "7c4b26b2eb0edb33a6e61f03ffc58d876ea7e3e20fbe4e2fa525c58a640c509c"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasse-buffers.json": {
+    "bytes": 31380,
+    "sha256": "1a3b2e4e45c772d66a13defca4449d65a02b4eba06e42ef24a0a2fa7277c3e2e"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasse-lemma75-memory55.json": {
+    "bytes": 31253,
+    "sha256": "bfcdc9c68a8cba9c1206be41f89c579c4c8a4b8a6cf1ef46a44fd882a95b2b4c"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasse-memory55.json": {
+    "bytes": 31395,
+    "sha256": "cbf4b008c2190f6ab45988ed18c546ba3c70b9c132aba8bb4cab983518d1d189"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasse-memory70.json": {
+    "bytes": 31368,
+    "sha256": "2d0219856d9a99e6203407188c012d2f44bfda8020f34de9e23e31e44b4d65ee"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Tasse.json": {
+    "bytes": 31385,
+    "sha256": "a63f7f2185d675df2863621ab035a939bbd4b5d0d0dd4f4fb6abdee6e339e774"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Teller-buffers.json": {
+    "bytes": 31774,
+    "sha256": "972112c931701ce3467ba5c4095bc87d513a363f8b275d24f2229f2a13160082"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Teller-lemma75-memory55.json": {
+    "bytes": 30384,
+    "sha256": "1ce84bf4b11077be7d3b6de247805e3af85e161ff89f4089475de8e2a0367b64"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Teller-memory55.json": {
+    "bytes": 30570,
+    "sha256": "0872c6089cc5683199eca60c3b95f0673e87ee88777d1a4413169763c62dfd71"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Teller-memory70.json": {
+    "bytes": 30567,
+    "sha256": "7318c54879f201f33d02cc71017675842dbf88c86421c6f7c78b357b8a7124ce"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Teller.json": {
+    "bytes": 31602,
+    "sha256": "3f0f8ec3f142cea2102593fe1550b13f3ce9834ea33e8ce06b5cebe9b883a142"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Topf-buffers.json": {
+    "bytes": 31292,
+    "sha256": "1ec1f58d3b7906818a1409a647da3d69774fd30d661b69e1928eddc0bd8e2b92"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Topf-lemma75-memory55.json": {
+    "bytes": 31149,
+    "sha256": "add78b754d2a9533a56b776878533d2dacbb88ce4217243578929ae143363a19"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Topf-memory55.json": {
+    "bytes": 31272,
+    "sha256": "28d6d7d22578c84d2f3d06dd525e8d8b7174809157148420d0012ed968d75170"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Topf-memory70.json": {
+    "bytes": 31281,
+    "sha256": "94aba2b3008c1e3e7f173b0a33b492d28438e630dcb5a0181f9a538fb9fe3be6"
+  },
+  "perception-production-model/runs-613-syllabification-20261105/production-Topf.json": {
+    "bytes": 31171,
+    "sha256": "4a764cce330ce774f35baf30cc59801368f58fb84c090362cefdca10042e4a16"
+  },
+  "perception-production-model/style-613-syllabification-20261105.css": {
+    "bytes": 18222,
+    "sha256": "73fb7317b63b4d92cf1624c2de9267f4a81da1db2f9f8ef130bf34a4ab930fe3"
+  }
+}

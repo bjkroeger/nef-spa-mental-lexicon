@@ -13,3 +13,13 @@ In der geprüften lokalen WWT-Ablage wurde keine Lizenzdatei oder ausdrückliche
 ## Development branch: 613 entries (2026-11-04)
 
 `data/wwt_full_lexicon.json` extends the dependency-complete extraction to 613 word entries. All required concept and phonology dependencies are included. Thirteen missing phonological mappings were restored from existing definitions with the author’s approval; Verbringen uses the existing P_fEA component in place of P_EA. The JSON records each correction and source hashes. Absolute local paths are omitted. The eight-word fixture is retained unchanged. The previous license-status statement also applies to this development snapshot.
+
+
+## Syllabification extension (2026-11-05)
+
+The current publication adds stored phonological graph readout after accepted
+word retrieval and the explicitly agreed first-syllable simplifications. It
+retains the original 48 neural recordings and includes derived records with
+unchanged neural fields and separately fingerprinted graph readouts. The
+original recording dates and source fingerprints remain intact. No additional
+historical WWT scripts or publication PDFs are distributed.

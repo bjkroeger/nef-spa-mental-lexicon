@@ -14,6 +14,22 @@
 <p class="fine"><strong>Stored word vectors, mathematical similarities and ablation.</strong> In this model, ablation leaves the stored word vectors and their mathematical similarities completely unchanged. It damages the neural processing of these vectors: activations may become weaker or distorted, and retrieval may fail or produce a different word. The matrices therefore always show the undamaged reference relationships. The bars above show what the neural model actually produces under the selected ablation settings.</p>
 </section>
 <section id="result" class="result"><div class="result-icon" aria-hidden="true">◎</div><div class="result-body"><p class="eyebrow" id="result-tag">TASK GOAL</p><h2 id="result-title">Which concept does this sound form represent?</h2><p id="result-text">The perception pathway stops here. Word production starts only when you choose to continue.</p><div id="code-box" hidden><label for="code">Phonological output code · IPA</label><div class="code-row"><input id="code" readonly><button id="copy">Copy</button></div><p id="pointer" class="fine"></p></div></div><button id="transfer" class="secondary" hidden>Produce this concept →</button></section>
+<!-- LIVE-ONLY SYLLABIFICATION START -->
+<section id="syllabification" class="syllabification-panel" aria-labelledby="syllabification-title" hidden>
+<p class="eyebrow">CONCEPT-TO-PHONO PATHWAY → SYLLABIFICATION</p>
+<h2 id="syllabification-title">From the retrieved word to ordered syllables</h2>
+<p>This stored phonological graph underlies the recursive construction of the word’s Semantic Pointer. Phonological similarities are calculated from the resulting vectors. The stored order of direct word links is treated as learned lexical syllable order.</p>
+<p id="syllabification-status" role="status">Run production to inspect the retrieved word.</p>
+<div id="syllabification-content" hidden>
+<div class="syllabification-grid">
+<article><h3>1 · Stored phonological graph</h3><p class="fine">Complete reachable subgraph. Every branch denotes InclPhon; shared nodes may appear on multiple branches.</p><pre id="syllabification-graph" tabindex="0" aria-label="Stored phonological graph"></pre></article>
+<article><h3>2 · Ordered lexical syllables</h3><ol id="syllabification-lexical"></ol><h3>3 · Simplified syllable output</h3><ol id="syllabification-output"></ol></article>
+</div>
+<p id="syllabification-rule" class="fine"></p>
+</div>
+<p class="fine">Stored graph readout after accepted neural word retrieval, not measured neural syllable activation. St = stressed; e = schwa. Model symbols are retained. Positions specify order, not durations or gesture phases. This is the endpoint of the local production pathway.</p>
+</section>
+<!-- LIVE-ONLY SYLLABIFICATION END -->
 <!-- LIVE-ONLY ABLATION START -->
 <section class="damage-panel" aria-labelledby="damage-title">
 <div class="section-head"><div><p class="eyebrow">EXPLORE NEURAL DAMAGE</p><h2 id="damage-title">The mental lexicon</h2></div><button id="restore-neurons" class="secondary">Restore all neurons</button></div>

@@ -55,13 +55,13 @@ function updatePresets() {
 }
 const levels={phonology:['Phonology','The sound form of the word'],lemma:['Lemma','The lexical entry'],concept:['Concept','The meaning of the word']};
 function stop(){playing=false;cancelAnimationFrame(frame);$('play').textContent='▶';$('play').setAttribute('aria-label','Start playback');}
-function reset(){stop();result=null;position=0;$('timeline').value=0;$('timeline').disabled=true;$('play').disabled=true;$('time').textContent='0.00 s';$('state').textContent='Ready';$('transfer').hidden=true;$('code-box').hidden=true;$('code').value='';$('result-tag').textContent='TASK GOAL';$('result-title').textContent=task==='perception'?'Which concept does this sound form represent?':'Which sound form belongs to this concept?';$('result-text').textContent=task==='perception'?'The perception pathway stops here. Word production starts only when you choose to continue.':'The production pathway starts from meaning and retrieves a phonological word form of its own.';}
+function reset(){stop();result=null;renderSyllabification();position=0;$('timeline').value=0;$('timeline').disabled=true;$('play').disabled=true;$('time').textContent='0.00 s';$('state').textContent='Ready';$('transfer').hidden=true;$('code-box').hidden=true;$('code').value='';$('result-tag').textContent='TASK GOAL';$('result-title').textContent=task==='perception'?'Which concept does this sound form represent?':'Which sound form belongs to this concept?';$('result-text').textContent=task==='perception'?'The perception pathway stops here. Word production starts only when you choose to continue.':'The production pathway starts from meaning and retrieves a phonological word form of its own.';}
 function choose(word){selected=word;reset();updateDamage();renderChoices();renderFlow();$('status').textContent=task==='perception'?'Sound form selected. Ready for the perception pathway.':'Concept selected. Ready for the production pathway.';}
 function renderChoices(){$('choices').replaceChildren(...words.map((word,i)=>{const b=document.createElement('button');b.className='choice'+(word===selected?' selected':'');b.textContent=task==='perception'?'/'+ipa[i]+'/':word;b.setAttribute('aria-pressed',String(word===selected));b.disabled=busy;b.onclick=()=>choose(word);return b;}));}
 function renderFlow(){const order=task==='perception'?['phonology','lemma','concept']:['concept','lemma','phonology'];$('flow').innerHTML=order.map((level,i)=>`<article class="level" data-level="${level}"><span class="level-number">0${i+1}</span><h3>${levels[level][0]}</h3><span class="level-sub">${levels[level][1]}</span>${words.map((w,j)=>`<div class="row" data-index="${j}"><div class="row-label"><b>${w}</b><output>0.00</output></div><div class="bar"><span></span></div></div>`).join('')}</article>`).join('');}
 function setTask(next, word=selected){if(busy)return;task=next;selected=word;reset();for(const t of ['perception','production']){$(t).classList.toggle('selected',t===task);$(t).setAttribute('aria-pressed',String(t===task));}const p=task==='perception';$('input-title').textContent=p?'Choose a sound form':'Activate a concept';$('input-help').textContent=p?'Select a phonological transcription. The model retrieves its meaning.':'Choose the meaning you want to express. The model retrieves the corresponding word form.';$('input-note').textContent=p?'The selected sound form is supplied as a complete phonological pointer.':'The word label is a selection button: only the concept pointer is supplied as input.';$('run').innerHTML=(RECORDED?(p?'Play perception':'Play production'):(p?'Start perception':'Start production'))+' <span>↗</span>';$('model-title').textContent=p?'How sounds become meaning':'How meaning becomes a word';$('status').textContent=p?'Choose a sound form and start the perception pathway.':'Choose a concept and start the production pathway.';renderChoices();renderFlow();updateDamage();}
 function draw(index){if(!result)return;index=Math.max(0,Math.min(result.time.length-1,index));$('timeline').value=index;$('time').textContent=result.time[index].toFixed(2)+' s';for(const card of document.querySelectorAll('.level')){const level=card.dataset.level, values=result.levels[level][index];const max=Math.max(...values);const selection=result.selections[level+'_entries']?.[index];card.querySelectorAll('.row').forEach((row,j)=>{row.querySelector('output').textContent=values[j].toFixed(2);row.querySelector('.bar span').style.width=Math.max(0,Math.min(100,values[j]/1.2*100))+'%';row.classList.toggle('winner',values[j]===max&&max>.3);row.classList.toggle('chosen',!!selection&&selection[j]>.3);});}}
-function showResult(){position=60;draw(60);const p=task==='perception';$('state').textContent='Completed';$('result-tag').textContent=p?'STOP AT THE CONCEPT LEVEL':'INDEPENDENT WORD OUTPUT';$('result-title').textContent=result.winner?(p?'Concept found: ':'Word form retrieved: ')+result.winner:'No unambiguous retrieval';$('result-text').textContent=result.winner?(p?'The sound form has been mapped to a meaning. This completes the perception task. You can now explicitly choose this concept as the starting point for a new production task.':'A phonological word form was retrieved from the activated concept via its lemma entry. Microphone input and an articulation model will be added at a later stage.'):'The neural output does not meet the retrieval criteria. No output code is generated.';$('transfer').hidden=!(p&&result.winner&&words.includes(result.winner));$('code-box').hidden=p||!result.winner||!result.code;if(!p&&result.winner&&result.code){$('code').value=result.code;$('pointer').textContent='Word-form pointer: '+result.pointer+' · IPA display; not yet a Dynart control code.';}$('status').textContent=(result.cached?'Previously computed run from this session':'Neural simulation completed')+' · '+result.neurons.toLocaleString('en-US')+' LIF neurons · Snapshot at 0.60 s; result from 0.45–0.70 s.';}
+function showResult(){renderSyllabification();position=60;draw(60);const p=task==='perception';$('state').textContent='Completed';$('result-tag').textContent=p?'STOP AT THE CONCEPT LEVEL':'INDEPENDENT WORD OUTPUT';$('result-title').textContent=result.winner?(p?'Concept found: ':'Word form retrieved: ')+result.winner:'No unambiguous retrieval';$('result-text').textContent=result.winner?(p?'The sound form has been mapped to a meaning. This completes the perception task. You can now explicitly choose this concept as the starting point for a new production task.':'A phonological word form was retrieved from the activated concept via its lemma entry. Syllabification below reads its stored graph and learned syllable order.'):'The neural output does not meet the retrieval criteria. No output code is generated.';$('transfer').hidden=!(p&&result.winner&&words.includes(result.winner));$('code-box').hidden=p||!result.winner||!result.code;if(!p&&result.winner&&result.code){$('code').value=result.code;$('pointer').textContent='Word-form pointer: '+result.pointer+' · IPA display; not yet a Dynart control code.';}$('status').textContent=(result.cached?'Previously computed run from this session':'Neural simulation completed')+' · '+result.neurons.toLocaleString('en-US')+' LIF neurons · Snapshot at 0.60 s; result from 0.45–0.70 s.';}
 function damageDescription(values, direction=task) {
   const changed=Object.entries(values).filter(([key,value])=>key.startsWith(direction+'_') && value>0);
   return changed.length ? changed.map(([key,value])=>componentNames[key]+': '+value+'% ablation').join(' · ') : 'No ablation';
@@ -144,3 +144,41 @@ async function loadNeighbours() {
   catch(e) { $('neighbours-status').textContent = 'Lexical neighbours could not be loaded. ' + e.message; }
 }
 loadNeighbours();
+
+function renderSyllabification() {
+  const panel = $('syllabification');
+  if (!panel) return;
+  panel.hidden = RECORDED || task !== 'production';
+  $('syllabification-content').hidden = true;
+  $('syllabification-graph').textContent = '';
+  $('syllabification-lexical').replaceChildren();
+  $('syllabification-output').replaceChildren();
+  $('syllabification-rule').textContent = '';
+  const data = result?.syllabification;
+  if (!data) {
+    $('syllabification-status').textContent = 'Run production to inspect the retrieved word.';
+    return;
+  }
+  if (data.status === 'no_retrieval') {
+    $('syllabification-status').textContent = 'No unambiguous word retrieval: no graph or syllable sequence is released.';
+    return;
+  }
+  $('syllabification-content').hidden = false;
+  $('syllabification-graph').textContent = data.graph_text;
+  $('syllabification-status').textContent = 'Retrieved word: ' + data.word +
+    (data.status === 'unsupported' ? ' · Graph available; syllable rules and order are not yet audited for this background word.' : ' · Stored lexical information, read after the neural run.');
+  for (const syllable of data.syllables) {
+    for (const stage of ['lexical', 'output']) {
+      const item = document.createElement('li');
+      const label = document.createElement('strong');
+      label.textContent = syllable[stage + '_form'];
+      const detail = document.createElement('span');
+      detail.textContent = ' · ' + (syllable.stressed ? 'stressed' : 'unstressed') + ' · ' + syllable[stage + '_node'];
+      item.append(label, detail);
+      $('syllabification-' + stage).append(item);
+    }
+  }
+  $('syllabification-rule').textContent = data.status === 'unsupported' ? 'No simplified output for this word.' :
+    data.syllables.some(s => s.rule) ? 'Applied model simplification: remove the final consonant of the first syllable; retain the second syllable unchanged (including lEA in Teller). Restricted to Tasse, Tasche, Kanne, Katze and Teller. The stored graph is unchanged.' :
+    'No simplification: the single lexical syllable is retained unchanged.';
+}

@@ -12,6 +12,7 @@ import numpy as np
 import nengo
 import perception
 import production
+from syllabification import for_live_result
 from lexicon_vectors import load_lexicon, representations
 from functools import lru_cache
 
@@ -64,6 +65,7 @@ def simulate(task, word, ablation=None):
         sim.run(1.1)
         result = recording_from_sim(sim, model, probes, words, vectors, task, word,
                                     ablation, damage, started)
+    result['syllabification'] = for_live_result(LEXICON, result)
     CACHE[key] = result
     if len(CACHE) > CACHE_LIMIT:
         CACHE.popitem(last=False)

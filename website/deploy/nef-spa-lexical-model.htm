@@ -30,15 +30,15 @@ footer {margin-top:48px;padding:16px;font-size:.9rem} @media(max-width:650px){bo
 <main>
 <p><a href="research.htm">← Back to Research</a></p>
 <h1>NEF-SPA Lexical Model</h1>
-<p class="meta">Bernd J. Kröger · Development status: 4 November 2026</p>
+<p class="meta">Bernd J. Kröger · Development status: 5 November 2026</p>
 <p class="intro"><strong>Working title: Mental Lexicon Model.</strong> This lexical part covers cognitive perception and production within the broader speech-processing model. The current mental lexicon contains <strong>613 word entries</strong>, with structured concept and phonological representations. Eight test words remain visible in the interface, while all 613 entries participate in retrieval. The online lab replays recorded neural runs with fixed seeds, including five production conditions and undamaged perception.</p>
 <p><strong>Development:</strong> The implementation, analyses, figures and documentation were created under the scientific direction of Bernd J. Kröger with assistance from ChatGPT. The scientific foundations are the publications listed below and the existing WWT implementation.</p>
 <p><strong>Python source code:</strong> <a href="https://github.com/bjkroeger/nef-spa-mental-lexicon">GitHub repository: nef-spa-mental-lexicon</a> · <a href="https://github.com/bjkroeger/nef-spa-mental-lexicon/releases/tag/v0.1.0">Historical eight-word version: v0.1.0</a>. The repository includes the lexicon data, tests and instructions for running the model.</p>
 <div class="note" style="border-left:4px solid #207768;margin:24px 0">
 <p style="margin:0 0 8px"><strong><a href="perception-production-model/" target="_blank" rel="noopener" style="font-size:1.25rem">Mental Lexicon Model — Interactive Lab →</a></strong></p>
-<p style="margin:0">Explore the interactive Lexicon Lab in your browser: choose from eight phonological forms, follow the perception pathway to a concept, and start an independent word-production task. Includes slow motion, visible activations and phonological output. The online version presents 48 precomputed Nengo simulations: eight perception runs and five production cases for each of the eight words. It includes a mental-lexicon diagram and selectable ablation examples, with short explanations for Kanne, and requires no local installation. The model vocabulary contains 613 entries; the eight visible words are test inputs, not the full vocabulary. Semantic and phonological neighbour tables search all 613 entries.</p>
+<p style="margin:0">Explore the interactive Lexicon Lab in your browser: choose from eight phonological forms, follow the perception pathway to a concept, and start an independent word-production task. Includes slow motion, visible activations, phonological output and stored-graph syllabification after word retrieval. The title remains “From sound to meaning. And back to words.” The online version presents 48 precomputed Nengo simulations: eight perception runs and five production cases for each of the eight words. It includes a mental-lexicon diagram and selectable ablation examples, with short explanations for Kanne, and requires no local installation. The model vocabulary contains 613 entries; the eight visible words are test inputs, not the full vocabulary. Semantic and phonological neighbour tables search all 613 entries. The public page only plays saved simulations and graph readouts; new neural calculations and freely adjustable ablation settings are available in the local Python version.</p>
 </div>
-<nav class="contents" aria-label="Contents"><a href="#lexikon">Lexicon core</a><a href="#kodierung">Vector encoding</a><a href="#matrizen">Similarity matrices</a><a href="#perzeption">Perception</a><a href="#produktion">Production</a><a href="#methodik">Methods and limitations</a><a href="#literatur">References</a></nav>
+<nav class="contents" aria-label="Contents"><a href="#lexikon">Lexicon core</a><a href="#kodierung">Vector encoding</a><a href="#matrizen">Similarity matrices</a><a href="#perzeption">Perception</a><a href="#produktion">Production</a><a href="#syllabification">Syllabification</a><a href="#methodik">Methods and limitations</a><a href="#literatur">References</a></nav>
 
 <section id="lexikon"><h2>1. A 613-entry lexicon with eight test words</h2>
 <p>The starting point is the three-level organisation of the mental lexicon, as described in particular by Stille et al. (2020). The broader model framework follows Kröger (2023). The 613 word entries were extracted from the existing WWT implementation, excluding task prompts, cue phrases and placeholders as lexical candidates. All required lower-level representations are retained. The following eight words are offered as test inputs: <strong>Tasse, Tasche, Kanne, Katze, Teller, Topf, Stuhl and Schrank.</strong></p>
@@ -74,7 +74,7 @@ footer {margin-top:48px;padding:16px;font-size:.9rem} @media(max-width:650px){bo
 <p>The complete phonological word pointer is supplied from 0.15 to 0.75 seconds. A competitive associative memory selects the lemma; a second memory transfers it to the concept level. Acoustic preprocessing is not modelled. All eight test words are correctly retrieved in the undamaged reference, with the output compared against all 613 candidates. For Kanne, the mean concept target activation is 0.965.</p>
 <p><a href="perception-production-model/">Open Lexicon Lab</a>, select “Understand a word” and play any of the eight reference recordings. Perception has no damage presets in this published edition.</p></section>
 <section id="produktion"><h2>5. Word retrieval and production ablation</h2>
-<p class="path">Concept → Lemma → Phonological form</p>
+<p class="path">Concept → Lemma → Phonological form → Syllabification</p>
 <p>A complete concept pointer is supplied directly; visual preprocessing is outside this demonstration. All eight test words are correctly retrieved in the undamaged reference. Five recorded production configurations are available for each word.</p>
 <p><strong>Why these components?</strong> The concept buffer, concept-to-lemma associative memory and lemma buffer were selected following the dysfunction sites studied by <a href="https://doi.org/10.3389/fpsyg.2020.01594">Stille et al. (2020)</a>. Perception and word comprehension also play a role in the WWT framework, but the emphasis here is on word retrieval for production. These five configurations illustrate the current model; they do not reproduce the paper’s experimental conditions or results.</p>
 <div class="table-wrap"><table class="results"><caption>Kanne: remaining neurons and mean phonological target activation, 0.45–0.70 s</caption><thead><tr><th>Case</th><th>Concept / C→L / Lemma (%)</th><th>Target activation</th><th>Retrieval decision</th></tr></thead><tbody>
@@ -95,7 +95,24 @@ footer {margin-top:48px;padding:16px;font-size:.9rem} @media(max-width:650px){bo
 <tr><th scope="row">Schrank</th><td>0.016 · no retrieval</td><td>0.471 · retrieved</td></tr>
 </tbody></table></div>
 </section>
-<section id="methodik"><h2>6. Measurements, implementation and limitations</h2>
+<section id="syllabification"><h2>6. From the retrieved word to ordered syllables</h2>
+<p>The Concept-to-Phono Pathway now ends with <strong>Syllabification</strong>. After an unambiguous neural word retrieval, this component reads the stored phonological graph of the actual retrieved word. The lab first displays the complete reachable graph, then <strong>Ordered lexical syllables</strong>, and finally <strong>Simplified syllable output</strong>. Failed retrieval releases neither a graph nor a syllable sequence. A retrieved background word can expose its graph, but no unaudited syllable sequence.</p>
+<p>This is the same stored recursive structure used to construct the phonological Semantic Pointers and hence their phonological similarities. The 1,003 phonological deep-layer nodes contain units of different sizes; they are not all syllables. Direct word links identify the lexical syllables for the eight audited words. Their stored order is interpreted as learned lexical knowledge supplied with the WWT transcription, not inferred from neural activation timing. No graph nodes, relation labels or vectors are renamed or changed.</p>
+<p>One explicit model simplification removes the final consonant of the first lexical syllable in Tasse, Tasche, Kanne, Katze and Teller. The second syllable is retained unchanged. This resolves the chosen treatment of intersyllabic consonants for these examples; it is not a general German syllabification algorithm.</p>
+<div class="table-wrap"><table class="results"><thead><tr><th>Word</th><th>Ordered lexical syllables</th><th>Simplified syllable output</th></tr></thead><tbody>
+<tr><td>Tasse</td><td>tas → se</td><td>ta → se</td></tr>
+<tr><td>Tasche</td><td>taS → Se</td><td>ta → Se</td></tr>
+<tr><td>Kanne</td><td>kan → ne</td><td>ka → ne</td></tr>
+<tr><td>Katze</td><td>kat → tse</td><td>ka → tse</td></tr>
+<tr><td>Teller</td><td>tEl → lEA</td><td>tE → lEA</td></tr>
+<tr><td>Topf</td><td>tOpf</td><td>tOpf</td></tr>
+<tr><td>Stuhl</td><td>Stuul</td><td>Stuul</td></tr>
+<tr><td>Schrank</td><td>SraNk</td><td>SraNk</td></tr>
+</tbody></table></div>
+<p>The model’s original symbols are retained here: <code>St</code> marks stress and <code>e</code> denotes schwa. Each word’s first syllable is stressed; the second syllable is unstressed. Teller therefore still yields <code>lEA</code> at this lexical endpoint. Positions specify order, not durations or oscillator phases. These are stored graph readouts, not measured neural syllable activations.</p>
+<p>The <a href="nef-spa-phono2gesture-pathway.htm">Phono-to-Gesture Pathway</a> separately demonstrates how supplied syllable representations drive gesture scores and articulation. There is currently no automatic connection between the two demonstrations. The 48 published lexical recordings retain their original neural trajectories; graph and syllable readouts have been appended without recomputing the neural runs.</p>
+</section>
+<section id="methodik"><h2>7. Measurements, implementation and limitations</h2>
 <div class="table-wrap"><table class="results"><thead><tr><th>Parameter</th><th>Setting</th></tr></thead><tbody>
 <tr><td>Software</td><td>Python 3.13, Nengo 4.1.0, NengoSPA 2.0.0</td></tr>
 <tr><td>Lexicon</td><td>613 entries; eight visible test words</td></tr>
@@ -111,7 +128,7 @@ footer {margin-top:48px;padding:16px;font-size:.9rem} @media(max-width:650px){bo
 <p class="note"><strong>Capacity and interpretation.</strong> The buffers retain the same size as in the earlier eight-entry model. Associative memories grow linearly with the number of entries, so the total neural population is not held fixed. The enlarged memories also have different ablation masks and neural realisations. Differences from the earlier model cannot be attributed to lexical load alone. These fixed-seed demonstrations do not establish ablation thresholds for a human lexicon or replace a multi-seed robustness study.</p>
 <p>The model uses whole-word pointers and predefined mappings. There is no learning rule or grammatical grouping on the lemma level. Full WWT task control and semantic/phonological cue trials are not reproduced here. Acoustic and visual preprocessing, sentence processing and articulation are outside this lexical demonstration.</p></section>
 
-<section id="literatur"><h2>7. Scientific background</h2><ul>
+<section id="literatur"><h2>8. Scientific background</h2><ul>
 <li>Kröger BJ (2023). The NEF-SPA Approach as a Framework for Developing a Neurobiologically Inspired Spiking Neural Network Model for Speech Production. <em>Journal of Integrative Neuroscience</em> 22:124. <a href="https://doi.org/10.31083/j.jin2205124">Publication</a>.</li>
 <li>Stille C, Bekolay T, Blouw P, Kröger BJ (2020). Modeling the Mental Lexicon as Part of Long-Term and Working Memory and Simulating Lexical Access in a Naming Task Including Semantic and Phonological Cues. <em>Frontiers in Psychology</em> 11:1594. <a href="https://doi.org/10.3389/fpsyg.2020.01594">Publication</a>.</li>
 <li>Kröger BJ, Crawford E, Bekolay T, Eliasmith C (2016). Modeling Interactions between Speech Production and Perception: Speech Error Detection at Semantic and Phonological Levels and the Inner Speech Loop. <em>Frontiers in Computational Neuroscience</em> 10:51. <a href="https://doi.org/10.3389/fncom.2016.00051">Publication</a>.</li>
@@ -120,6 +137,6 @@ footer {margin-top:48px;padding:16px;font-size:.9rem} @media(max-width:650px){bo
 </ul></section>
 <p><a href="research.htm">← Back to Research</a> · <a href="#">Back to top</a></p>
 </main>
-<footer>Bernd J. Kröger · Documentation under his scientific direction with assistance from ChatGPT · 4 November 2026</footer>
+<footer>Bernd J. Kröger · Documentation under his scientific direction with assistance from ChatGPT · 5 November 2026</footer>
 <script>fetch('header.htm').then(r=>{if(!r.ok)throw new Error('Header');return r.text()}).then(html=>{document.getElementById('header-container').innerHTML=html}).catch(()=>{});</script>
 </body></html>
